@@ -16,12 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className="bg-gris-fonce">
       <body className={inter.className}>
-        <main className="pb-16 md:pb-0">
+        <main className="pb-16 md:pb-0 bg-gris-fonce" >
         {children}
-        <Navbar />
         </main>
+        <Navbar />
       </body>
     </html>
   );

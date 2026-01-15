@@ -9,7 +9,7 @@ export function Navbar() {
   const { data: session, isPending } = useSession();
 
   return (
-    <nav className="fixed bottom-3 left-0 right-0 bg-red-500 border-t z-50">
+    <nav className="fixed bottom-3 left-0 right-0 bg-orange-fonce">
       <div className="flex w-full h-16">
         {/* Logo */}
         <Link
