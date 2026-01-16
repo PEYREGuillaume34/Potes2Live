@@ -10,7 +10,7 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between px-4 py-4">
                     <h1 className="text-2xl font-bold text-white">Profil</h1>
                     <Link 
-                        href="/settings" 
+                        href="/edit-profile" 
                         className="p-2 hover:bg-gray-700 rounded-full transition-colors"
                         aria-label="Paramètres"
                     >

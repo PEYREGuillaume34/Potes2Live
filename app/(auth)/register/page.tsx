@@ -34,11 +34,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-gris-fonce  px-4">
+      <div className="bg-gris-fonce p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Potes2Live</h1>
-          <p className="text-gray-600">Créez votre compte</p>
+          <h1 className="text-4xl font-bold text-orange-fonce mb-2">INSCRIPTION</h1>
+          <p className="text-white">Créez votre compte</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -49,7 +49,7 @@ export default function RegisterPage() {
           )}
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
               Nom complet
             </label>
             <input
@@ -58,13 +58,13 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="Marie Dupont"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
               Email
             </label>
             <input
@@ -73,13 +73,13 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="marie@exemple.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
               Mot de passe
             </label>
             <input
@@ -89,24 +89,24 @@ export default function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="••••••••"
             />
-            <p className="text-xs text-gray-500 mt-1">Minimum 8 caractères</p>
+            <p className="text-xs text-white mt-1">Minimum 8 caractères</p>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white font-semibold py-3 rounded-lg transition-colors duration-200"
+            className="w-full bg-orange-fonce text-white font-semibold py-3 rounded-lg transition-colors duration-200"
           >
             {loading ? "Inscription en cours..." : "S'inscrire"}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-white">
           Déjà un compte ?{" "}
-          <Link href="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
+          <Link href="/login" className="text-orange-fonce hover:text-orange-700 font-semibold">
             Se connecter
           </Link>
         </div>

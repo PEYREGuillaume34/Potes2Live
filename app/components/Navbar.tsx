@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useSession, signOut } from "@/app/lib/auth-client";
 import { useState } from "react";
-import { CircleUserRound, Globe, House, MessageCircleMore } from "lucide-react";
+import { CircleUserRound, House, MessageCircleMore, Speaker } from "lucide-react";
 
 export function Navbar() {
   const { data: session, isPending } = useSession();
 
   return (
-    <nav className="fixed bottom-3 left-0 right-0 bg-orange-fonce">
+    <nav className="fixed bottom-0 left-0 right-0 bg-orange-fonce">
       <div className="flex w-full h-16">
         {/* Logo */}
         <Link
@@ -25,10 +25,10 @@ export function Navbar() {
           <MessageCircleMore />
         </Link>
         <Link
-          href="/event"
+          href="/concerts"
           className="flex flex-1 items-center justify-center text-white"
         >
-          <Globe />
+          <Speaker />
         </Link>
         <Link
           href="/profile"
