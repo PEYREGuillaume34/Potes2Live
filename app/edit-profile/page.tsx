@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
 import { updateUserProfile } from "../actions/user";
 
+
 export default function EditProfilePage() {
   const { data: session } = useSession();
 
