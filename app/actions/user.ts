@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { auth } from "@/app/lib/auth";
 import { db } from "@/app/lib/db/drizzle";
