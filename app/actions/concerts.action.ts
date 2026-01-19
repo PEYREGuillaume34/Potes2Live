@@ -93,3 +93,51 @@ export async function getConcertsByCity(city: string, postalCode?: string) {
         return { success: false, error: "Erreur lors de la récupération des concerts par ville" };
     }
     }
+
+    export async function getConcertBySlug(slug: string) {
+        try {
+            const concert = await db
+            .select({
+                id: events.id,
+                slug: events.slug,
+                title: events.title,
+                description: events.description,
+                imageUrl: events.imageUrl,
+                eventDate: events.eventDate,
+                eventTime: events.eventTime,
+                price: events.price,
+                ticketUrl: events.ticketUrl,
+                artist: {
+                    id: artists.id,
+                    name: artists.name,
+                    genre : artists.genre,
+                    imageUrl: artists.imageUrl,
+                    spotifyUrl: artists.spotifyUrl,
+                    instagramUrl: artists.instagramUrl,
+                    bio: artists.bio,
+                },
+                venue: {
+                    id:venues.id,
+                    name: venues.name,
+                    city: venues.city,
+                    postalCode: venues.postalCode,
+                    address: venues.address,
+                    latitude: venues.latitude,
+                    longitude: venues.longitude,
+                },
+            })
+            .from(events)
+            .innerJoin(artists, eq(events.artistId, artists.id))
+            .innerJoin(venues, eq(events.venueId, venues.id))
+            .where(eq(events.slug, slug))
+            .limit(1);
+
+            if (concert.length === 0) {
+                return { success: false, error: "Concert non trouvé" };
+            }
+            return { success: true, data: concert[0] };
+        } catch (error) {
+            console.error("Erreur récupération concert par slug:", error);
+            return { success: false, error: "Erreur lors de la récupération du concert" };
+        }
+    }

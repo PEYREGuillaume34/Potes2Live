@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 type ConcertCardProps = {
   slug: string;
@@ -35,7 +34,7 @@ export function ConcertCard({
       year: "numeric",
     });
   };
-  console.log("Rendering ConcertCard for:", artistName);
+
 
   return (
     <Link href={`/concerts/${slug}`}>

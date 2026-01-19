@@ -4,14 +4,14 @@ import { Settings } from "lucide-react";
 
 export default function ProfilePage() {
        return (
-        <div className="min-h-screen flex flex-col bg-gris-fonce">
+        <div className="min-h-screen flex flex-col bg-black">
             {/* Header fixe en haut */}
-            <header className="fixed top-0 left-0 right-0 bg-gris-fonce z-10 border-b border-gray-700">
+            <header className="fixed top-0 left-0 right-0 bg-black z-10 border-b border-gray-700">
                 <div className="flex items-center justify-between px-4 py-4">
                     <h1 className="text-2xl font-bold text-white">Profil</h1>
                     <Link 
-                        href="/edit-profile" 
-                        className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+                        href="/profile-edit" 
+                        className="p-2 hover:bg-black rounded-full transition-colors"
                         aria-label="Paramètres"
                     >
                         <Settings className="w-6 h-6 text-white" />
