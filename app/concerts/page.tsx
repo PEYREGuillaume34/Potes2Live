@@ -1,10 +1,18 @@
 import Link from "next/link";
-import { getUpcomingConcerts } from "../actions/concerts.action";
+import { getUpcomingConcerts, getConcertsByCity } from "../actions/concerts.action";
 import { ConcertsClient } from "./ConcertsClient";
 
-export default async function ConcertsPage() {
-  const result = await getUpcomingConcerts();
-  console.log("Resultat concerts:", result);
+export default async function ConcertsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ city?: string; postalCode?: string }>;
+}) {
+
+  const params = await searchParams;
+  // Utilise les paramètres de recherche pour filtrer
+   const result = params.city 
+    ? await getConcertsByCity(params.city, params.postalCode)
+    : await getUpcomingConcerts();
 
   if (!result.success) {
     return (
@@ -23,7 +31,7 @@ export default async function ConcertsPage() {
         Découvrez les prochains concerts et rejoignez des groupes de fans pour y
         assister ensemble!
       </p>
-      <ConcertsClient concerts={result.data} />
+      <ConcertsClient concerts={result.data} initialCity={params.city} initialPostalCode={params.postalCode} />
     </div>
   );
 }

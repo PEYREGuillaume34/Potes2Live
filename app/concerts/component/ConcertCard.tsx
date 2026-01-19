@@ -35,6 +35,7 @@ export function ConcertCard({
       year: "numeric",
     });
   };
+  console.log("Rendering ConcertCard for:", artistName);
 
   return (
     <Link href={`/concerts/${slug}`}>
@@ -48,13 +49,13 @@ export function ConcertCard({
                 className="object-cover w-full h-full"
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-white">
+            <div className="flex items-center justify-center h-full text-white bg-gray-400">
                 Image non disponible
             </div>
             )}
             {/* Badge Genre */}
         {artistGenre && (
-            <div className="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">
+            <div className="absolute top-2 left-2 bg-orange-fonce text-white text-xs px-2 py-1 rounded">
                 {artistGenre}
             </div>
         )}

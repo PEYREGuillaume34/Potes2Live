@@ -1,103 +1,115 @@
 "use client";
 
-import { useState } from "react";
+import { useState} from "react";
+import { useRouter } from "next/navigation";
 import { ConcertCard } from "./component/ConcertCard";
 
+const PARIS_ARRONDISSEMENTS = [
+  75001, 75002, 75003, 75004,
+  75005, 75006, 75007, 75008,
+  75009, 75010, 75011, 75012,
+  75013, 75014, 75015, 75016,
+  75017, 75018, 75019, 75020,
+];
 
-export function ConcertsClient({ concerts }: { concerts: any[] }) {
-  const [selectedZone, setSelectedZone] = useState<string>("Toutes les zones");
+export function ConcertsClient({ 
+  concerts,
+  initialCity,
+  initialPostalCode 
+}: { 
+  concerts: any[];
+  initialCity?: string;
+  initialPostalCode?: string;
+}) {
+  const router = useRouter();
+  const [showArrondissements, setShowArrondissements] = useState(initialCity === "Paris");
+  const [showCity, setShowCity] = useState(false);
 
-  const ZONES = [
-      "Toutes les zones",
-    "Paris Centre (1-4)",
-    "Paris Ouest (7-8, 15-17)",
-    "Paris Est (10-12, 19-20)",
-    "Paris Nord (9, 18)",
-    "Paris Sud (13-14)",
-    // Vous pourrez ajouter plus tard :
-    // "Petite couronne (92, 93, 94)",
-    // "Grande couronne (77, 78, 91, 95)",
-  ];
-
-  // Filtrer les concerts par zone
-  const filteredConcerts = concerts.filter((concert) => {
-    if (selectedZone === "Toutes les zones") return true;
-
-    const postalCode = concert.venue.postalCode;
-
-    // Paris Centre
-    if (selectedZone === "Paris Centre (1 à 4)") {
-        return [75001, 75002, 75003, 75004].includes(postalCode);
+  const handleParisFilter = () => {
+    if (showArrondissements) {
+      // Désactiver le filtre
+      router.push("/concerts");
+      setShowArrondissements(false);
+    } else {
+      // Activer le filtre Paris
+      router.push("/concerts?city=Paris");
+      setShowArrondissements(true);
+    } if (showCity) {
+      setShowCity(true);
+      router.push(`/concerts?city=${initialCity}`);
     }
-    // Paris Ouest
-    if (selectedZone === "Paris Ouest (7 à 8, 15 à 17)") {
-        return [75007, 75008, 75015, 75016, 75017].includes(postalCode);
-    }
-    // Paris Est
-    if (selectedZone === "Paris Est (10 à 12, 19 à 20)") {
-        return [75010, 75011, 75012, 75019, 75020].includes(postalCode);
-    }
-    // Paris Nord
-    if (selectedZone === "Paris Nord (9, 18)") {
-        return [75009, 75018].includes(postalCode);
-    }
-    // Paris Sud
-    if (selectedZone === "Paris Sud (13 à 14)") {
-        return [75013, 75014].includes(postalCode);
-    }
-    return false;
+  };
 
-  });
-
-  const renderFilters = () => {
-    return (
-      <div>
-
-        <div className="flex flex-wrap gap-2">
-          {ZONES.map((zone) => (
-            <button
-              key={zone}
-              onClick={() => setSelectedZone(zone)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                selectedZone === zone
-                  ? "bg-purple-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              {zone}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
+  const handleArrondissement = (code: number) => {
+    router.push(`/concerts?city=Paris&postalCode=${code}`);
   };
 
   return (
     <div>
-      {renderFilters()}
-      
-      {filteredConcerts.length === 0 ? (
-        <p className="mt-6 text-white">Aucun concert disponible dans cette zone.</p>
-      ) : (
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredConcerts.map((concert) => (
-                <ConcertCard
-                    key={concert.id}
-                    slug={concert.slug}
-                    title={concert.title}
-                    imageUrl={concert.imageUrl}
-                    artistName={concert.artist.name}
-                    artistGenre={concert.artist.genre}
-                    venueName={concert.venue.name}
-                    venueCity={concert.venue.city}
-                    venuePostalCode={concert.venue.postalCode}
-                    date={concert.eventDate}
-                    time={concert.eventTime}
-                    price={concert.price}
-                    />  
-            ))}
+      {/* FILTRES */}
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={handleParisFilter}
+          className={`px-4 py-2 rounded-lg font-medium ${
+            showArrondissements ? "bg-orange-fonce text-white" : "bg-gray-100"
+          }`}
+        >
+          Paris
+        </button>
       </div>
-  )};
+
+      {/* ARRONDISSEMENTS */}
+    {showArrondissements && (
+  <div className="mt-4 relative">
+    <div 
+      className="flex overflow-x-auto gap-3 pb-4 no-scrollbar scroll-smooth"
+      style={{
+        scrollbarWidth: 'none', // Pour Firefox
+        msOverflowStyle: 'none', // Pour IE/Edge
+      }}
+    >
+      {/* On ajoute un petit padding à gauche pour que le premier bouton soit aligné */}
+      <div className="flex flex-nowrap gap-2">
+        {PARIS_ARRONDISSEMENTS.map((code) => (
+          <button
+            key={code}
+            onClick={() => handleArrondissement(code)}
+            className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+              initialPostalCode === code.toString()
+                ? "bg-orange-fonce text-white shadow-lg"
+                : "bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700"
+            }`}
+          >
+            {code.toString().slice(-2)}ᵉ
+          </button>
+        ))}
+      </div>
     </div>
-    );
+    
+    {/* Optionnel: Petit dégradé sur les bords pour indiquer qu'il y a une suite */}
+    <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-black/20 to-transparent pointer-events-none" />
+  </div>
+)}
+
+      {/* LISTE */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {concerts.map((concert) => (
+          <ConcertCard
+          key={concert.id}
+          slug={concert.slug}
+          title={concert.title}
+          imageUrl={concert.imageUrl}
+          artistName={concert.artist.name}
+          artistGenre={concert.artist.genre}
+          venueName={concert.venue.name}
+          venueCity={concert.venue.city}
+          venuePostalCode={concert.venue.postalCode}
+          date={concert.eventDate}
+          time={concert.eventTime}
+          price={concert.price}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
