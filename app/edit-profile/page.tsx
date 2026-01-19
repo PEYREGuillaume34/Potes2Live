@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft } from "lucide-react";
+import { Check, ChevronLeft, Power, UserRoundPen, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
@@ -214,9 +214,7 @@ export default function EditProfilePage() {
                 onClick={() => setIsEditing(true)}
                 className="bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+               <UserRoundPen />
                 Éditer le profil
               </button>
             ) : (
@@ -227,13 +225,9 @@ export default function EditProfilePage() {
                   className="bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {isLoading ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
+                    <Check />
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                    <Check />
                   )}
                   {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
                 </button>
@@ -241,9 +235,7 @@ export default function EditProfilePage() {
                   onClick={handleCancel}
                   className="bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                   <X />
                   Annuler
                 </button>
               </div>
@@ -252,11 +244,9 @@ export default function EditProfilePage() {
             {/* Déconnexion */}
             <button
               onClick={handleSignOut}
-              className="mt-4 sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+              className="sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H3" />
-              </svg>
+              <Power />
               Déconnexion
             </button>
           </div>
