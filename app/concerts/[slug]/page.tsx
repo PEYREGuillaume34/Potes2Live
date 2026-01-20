@@ -1,6 +1,5 @@
 import { getConcertBySlug } from "@/app/actions/concerts.action";
 import { notFound } from "next/dist/client/components/navigation";
-import { title } from "process";
 
 type PageProps = {
   params: { slug: string };
@@ -39,9 +38,8 @@ export default async function ConcertDetailPage({ params }: PageProps) {
       {concert.ticketUrl && (
         <a
           href={concert.ticketUrl}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-orange-clair text-black font-medium px-4 py-2 rounded"
           target="_blank"
-          rel="noopener noreferrer"
         >
           Acheter des billets
         </a>

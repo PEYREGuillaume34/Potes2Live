@@ -1,6 +1,5 @@
 "use client";
 
-import { useState} from "react";
 import { useRouter } from "next/navigation";
 import { ConcertCard } from "./component/ConcertCard";
 
@@ -72,7 +71,7 @@ export function ConcertsClient({
                       : "bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700"
                   }`}
                 >
-                  {code.toString().slice(-1)}ᵉ
+                  {code.toString().slice(-2)}ᵉ
                 </button>
               ))}
             </div>
