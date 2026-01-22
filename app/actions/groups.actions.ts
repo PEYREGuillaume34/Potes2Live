@@ -1,4 +1,5 @@
-import { is, max } from "drizzle-orm";
+"use server";
+
 import { db } from "../lib/db/drizzle";
 import { groups, groupMembers, user } from "@/app/lib/db/schema";
 import { eq, and, count } from "drizzle-orm";
@@ -233,7 +234,7 @@ export async function getGroupMembers(groupId: number) {
     }
        
 }
-
+// Vérifier si l'utilisateur actuel est membre d'un groupe spécifique
 export async function isUserMemberOfGroup(groupId: number) {
     try {
         const session = await auth.api.getSession({
@@ -294,3 +295,67 @@ export async function desactivateGroup(groupId: number) {
         return { success: false, error: "Erreur lors de la désactivation du groupe" };
     }
 }
+
+export async function getUserGroups() {
+    try {
+        const session = await auth.api.getSession({
+            headers: await headers()
+        })
+
+        if (!session) {
+            return { success: false, error: "Non authentifié" };
+        }
+
+        // Récupérer tous les groupes où l'utilisateur est membre actif
+        const userGroups = await db
+            .select({
+                id: groups.id,
+                name: groups.name,
+                description: groups.description,
+                maxMembers: groups.maxMembers,
+                createdAt: groups.createdAt,
+                isActive: groups.isActive,
+                eventId: groups.eventId,
+                owner: {
+                    id: user.id,
+                    name: user.name,
+                    image: user.image,
+                },
+                // Le rôle de l'utilisateur connecté dans ce groupe
+                userRole: groupMembers.role,
+            })
+            .from(groupMembers)
+            .innerJoin(groups, eq(groupMembers.groupId, groups.id))
+            .innerJoin(user, eq(groups.ownerId, user.id))
+            .where(and(
+                eq(groupMembers.userId, session.user.id),
+                eq(groupMembers.status, "active"),
+                eq(groups.isActive, true)
+            ))
+            .orderBy(groups.createdAt);
+
+        // Pour chaque groupe, compter le nombre total de membres actifs
+        const groupsWithCount = await Promise.all(
+            userGroups.map(async (group) => {
+                const [memberCountResult] = await db
+                    .select({ count: count(groupMembers.id) })
+                    .from(groupMembers)
+                    .where(and(
+                        eq(groupMembers.groupId, group.id),
+                        eq(groupMembers.status, "active")
+                    ));
+
+                return {
+                    ...group,
+                    memberCount: memberCountResult?.count || 0,
+                };
+            })
+        );
+
+        return { success: true, data: groupsWithCount };
+    } catch (error) {
+        console.error("Erreur récupération groupes utilisateur:", error);
+        return { success: false, error: "Erreur lors de la récupération des groupes de l'utilisateur" };
+    }
+}
+
