@@ -1,0 +1,1 @@
+// # Page détail groupe avec chat

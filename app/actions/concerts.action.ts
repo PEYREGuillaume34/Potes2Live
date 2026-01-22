@@ -74,6 +74,7 @@ export async function getConcertsByCity(city: string, postalCode?: string) {
         artist: {
             name: artists.name,
             genre : artists.genre,
+            imageUrl: artists.imageUrl,
         },
         venue: {
             name: venues.name,

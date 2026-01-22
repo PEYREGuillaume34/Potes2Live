@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "one_active_group_per_user_per_event" ON "groups" USING btree ("event_id","owner_id","is_active") WHERE "groups"."is_active" = true;

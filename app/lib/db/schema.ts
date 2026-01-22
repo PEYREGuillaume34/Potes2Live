@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { 
   pgTable, 
   serial, 
@@ -185,6 +185,8 @@ export const groups = pgTable("groups", {
 }, (table) => [
   index("groups_event_idx").on(table.eventId),
   index("groups_owner_idx").on(table.ownerId),
+  uniqueIndex("one_active_group_per_user_per_event").on(table.eventId, table.ownerId, table.isActive)
+    .where(sql`${table.isActive} = true`),
 ]);
 
 export const groupMembers = pgTable(

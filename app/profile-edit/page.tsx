@@ -19,6 +19,8 @@ export default function EditProfilePage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   // Synchroniser avec la session
   useEffect(() => {
@@ -26,6 +28,8 @@ export default function EditProfilePage() {
       setName(session.user.name || "");
       setEmail(session.user.email || "");
       setBio(session.user.bio || "");
+      setCurrentPassword("");
+      setNewPassword("");
     }
   }, [session]);
 
@@ -40,6 +44,8 @@ export default function EditProfilePage() {
       formData.append("name", name);
       formData.append("email", email);
       formData.append("bio", bio);
+      formData.append("currentPassword", currentPassword);
+      formData.append("newPassword", newPassword);
 
       await updateUserProfile(formData);
 
@@ -62,6 +68,8 @@ export default function EditProfilePage() {
     setName(session?.user?.name || "");
     setEmail(session?.user?.email || "");
     setBio(session?.user?.bio || "");
+    setCurrentPassword("");
+    setNewPassword("");
     setError(null);
     setIsEditing(false);
   };
@@ -204,7 +212,32 @@ export default function EditProfilePage() {
                   rows={3}
                 />
               </div>
+              {/* Changement de mot de passe */}
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Mot de passe actuel
+                </label>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="bg-gray-800 border border-gray-700 text-white rounded-lg p-4 w-full"
+                  placeholder="Votre mot de passe actuel"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Nouveau mot de passe
+                </label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="bg-gray-800 border border-gray-700 text-white rounded-lg p-4 w-full"
+                  placeholder="Votre nouveau mot de passe"
+                />
             </div>
+          </div>
           )}
 
           {/* Actions */}

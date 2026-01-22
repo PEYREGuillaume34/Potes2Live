@@ -39,7 +39,7 @@ export default function MyGroupsPage() {
     const result = await getMyGroups();
 
     if (result.success) {
-      setGroups(result.data || []);
+      setGroups((result.data || []) as MyGroup[]);
     } else {
       setError(result.error || "Erreur lors du chargement de vos groupes");
     }

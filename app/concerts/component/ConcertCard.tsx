@@ -5,6 +5,7 @@ type ConcertCardProps = {
   title: string;
   imageUrl: string | null;
   artistName: string;
+  artistImageUrl: string | null;
   artistGenre: string | null;
   venueName: string;
   venueCity: string;
@@ -20,6 +21,7 @@ export function ConcertCard({
   imageUrl,
   artistName,
   artistGenre,
+  artistImageUrl,
   venueName,
   venueCity,
   venuePostalCode,
@@ -60,20 +62,55 @@ export function ConcertCard({
         )}
         </div>
         {/* Content */}
-        <div className="p-4">
-            <h2 className="text-lg font-semibold mb-2">{title}</h2>
-            <p className="text-gray-600 mb-1">Artiste: {artistName}</p>
-            <p className="text-gray-600 mb-1">Lieu: {venueName}, {venueCity}, {venuePostalCode}</p>
-            <p className="text-gray-600 mb-1">Date: {formatDate(date)}</p>
-            {time && <p className="text-gray-600 mb-1">Heure: {time}</p>}
-            {price !== null ? (
-                <p className="text-gray-600">Prix: {price} €</p>
-            ) : (
-                <p className="text-gray-600">Prix: Gratuit</p>
-            )}
+       <div className="p-5">
+          <h3 className="font-bold text-xl mb-2 text-gray-800 line-clamp-1">
+            {title}
+          </h3>
+
+          <div className="flex items-center gap-3">
+            {artistImageUrl ? (
+            <img
+              src={artistImageUrl}
+              alt={artistName}
+            className="w-8 h-8 rounded-full mb-2"
+          />
+          ) : (
+            <div className="flex items-center justify-center h-8 w-8 text-white bg-gray-400 rounded-full mb-2">
+              Image non disponible
+            </div>
+          )}
+
+          <p className="text-orange-fonce font-semibold text-lg mb-2">
+            {artistName}
+          </p>
+          </div>
+
+          <div className="space-y-2 text-sm text-gray-600">
+            <div className="flex items-center">
+              <span className="mr-2">📍</span>
+              <span className="line-clamp-1">
+                {venueName}, {venueCity}
+              </span>
+            </div>
+
+            <div className="flex items-center">
+              <span className="mr-2">📅</span>
+              <span>
+                {formatDate(date)}
+                {time && ` • ${time}`}
+              </span>
+            </div>
+          </div>
+
+          {/* Prix */}
+          <div className="mt-4 pt-4 border-t flex items-center justify-between">
+            <span className="text-2xl font-bold text-orange-fonce">
+              {price ? `${price}€` : "Gratuit"}
+            </span>
+          </div>
         </div>
       </div>
-
     </Link>
   );
 }
+
