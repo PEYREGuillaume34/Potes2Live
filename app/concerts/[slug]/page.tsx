@@ -1,5 +1,6 @@
 import { getConcertBySlug } from "@/app/actions/concerts.action";
 import { notFound } from "next/dist/client/components/navigation";
+import { GroupsList } from "./components/GroupsList";
 
 type PageProps = {
   params: { slug: string };
@@ -16,34 +17,41 @@ export default async function ConcertDetailPage({ params }: PageProps) {
   const concert = concertResult.data;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {concert.imageUrl && (
-        <img
-          src={concert.imageUrl}
-          alt={concert.title}
-          className="mb-4 w-full max-w-md"
-        />
-      )}
-      <h1 className="text-orange-clair text-3xl font-bold mb-4">{concert.title}</h1>
-      <p className="text-white mb-2">Artiste: {concert.artist.name}</p>
-      <p className="text-white mb-2">
-        Lieu: {concert.venue.name} - {concert.venue.city}
-      </p>
-      <p className="text-white mb-2">
-        Date: {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
-      </p>
-      <p className="text-white mb-4">Heure: {concert.eventTime}</p>
+    <div className="max-w-7xl mx-auto px-4 py-8 pb-24">
+      {/* Section Concert Info */}
+      <div className="bg-gradient-to-br from-orange-fonce/20 to-transparent p-6 rounded-lg mb-8">
+        {concert.imageUrl && (
+          <img
+            src={concert.imageUrl}
+            alt={concert.title}
+            className="mb-4 w-full max-w-md mx-auto rounded-lg shadow-lg"
+          />
+        )}
+        <h1 className="text-orange-clair text-3xl font-bold mb-4">{concert.title}</h1>
+        <p className="text-white mb-2">Artiste: {concert.artist.name}</p>
+        <p className="text-white mb-2">
+          Lieu: {concert.venue.name} - {concert.venue.city}
+        </p>
+        <p className="text-white mb-2">
+          Date: {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
+        </p>
+        <p className="text-white mb-4">Heure: {concert.eventTime}</p>
 
-      <p className="text-white mb-4">{concert.description}</p>
-      {concert.ticketUrl && (
-        <a
-          href={concert.ticketUrl}
-          className="bg-orange-clair text-black font-medium px-4 py-2 rounded"
-          target="_blank"
-        >
-          Acheter des billets
-        </a>
-      )}
+        <p className="text-white mb-4">{concert.description}</p>
+        {concert.ticketUrl && (
+          <a
+            href={concert.ticketUrl}
+            className="inline-block bg-orange-clair text-black font-medium px-4 py-2 rounded hover:bg-orange-600 hover:text-white transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Acheter des billets
+          </a>
+        )}
+      </div>
+
+      {/* Section Groupes */}
+      <GroupsList eventId={concert.id} />
     </div>
   );
 }
