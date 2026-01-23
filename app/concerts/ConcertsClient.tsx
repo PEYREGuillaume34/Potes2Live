@@ -91,6 +91,7 @@ export function ConcertsClient({
               imageUrl={concert.imageUrl}
               artistName={concert.artist.name}
               artistGenre={concert.artist.genre}
+              artistImageUrl={concert.artist.imageUrl}
               venueName={concert.venue.name}
               venueCity={concert.venue.city}
               venuePostalCode={concert.venue.postalCode}

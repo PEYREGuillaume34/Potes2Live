@@ -167,6 +167,16 @@ export default function EditProfilePage() {
                   {session?.user?.bio || "Pas encore de bio"}
                 </div>
               </div>
+
+              {/* Mot de passe */}
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Mot de passe
+                </label>
+                <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
+                  ********
+                </div>
+              </div>
             </div>
           ) : (
             // ========== MODE ÉDITION ==========

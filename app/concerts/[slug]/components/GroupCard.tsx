@@ -1,7 +1,6 @@
 "use client";
 
 import { deleteGroup, joinGroup, leaveGroup } from "@/app/actions/groups.actions";
-import { is } from "drizzle-orm";
 import { Divide, Trash2, Users } from "lucide-react";
 import { useState } from "react";
 

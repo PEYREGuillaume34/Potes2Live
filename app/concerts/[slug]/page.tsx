@@ -40,7 +40,7 @@ export default async function ConcertDetailPage({ params }: PageProps) {
       </div>
 
       <p className="text-white mb-6">{concert.description}</p>
-        {concert.ticketUrl && (
+        {/* {concert.ticketUrl && (
           <a
             href={concert.ticketUrl}
             className="inline-block bg-orange-clair text-black font-medium px-4 py-2 rounded hover:bg-orange-600 hover:text-white transition-colors"
@@ -49,7 +49,7 @@ export default async function ConcertDetailPage({ params }: PageProps) {
           >
             Acheter des billets
           </a>
-        )}
+        )} */}
       
 
       {/* Section Groupes */}

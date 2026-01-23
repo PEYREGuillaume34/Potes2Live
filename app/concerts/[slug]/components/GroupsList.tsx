@@ -97,18 +97,19 @@ export function GroupsList({ eventId }: GroupsListProps) {
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 border-t border-gray-700 pt-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h3 className="text-2xl font-bold text-white flex items-center gap-2">
           <Users className="w-6 h-6 text-orange-clair" />
-          Groupes de l'événement
-        </h2>
+          Groupes
+        </h3>
 
         {session?.user && canCreateGroup && !showCreateForm && (
-          <button
+          <button className="flex items-center gap-2 text-orange-clair font-medium"
             onClick={() => setShowCreateForm(true)}>
-            <Plus className="w-8 h-8 text-orange-clair border-2 border-orange-clair rounded" />
+              En créer un
+            <Plus className="w-6 h-6 text-orange-clair border-2 border-orange-clair rounded" />
           </button>
         )}
       </div>

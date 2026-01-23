@@ -177,6 +177,31 @@ export async function joinGroup(groupId: number) {
       return { success: false, error: "Groupe introuvable ou inactif" };
     }
 
+        // Vérifier si l'utilisateur est déjà dans un autre groupe pour cet événement
+    const [existingGroupForEvent] = await db
+      .select({
+        groupId: groupMembers.groupId,
+        groupName: groups.name,
+      })
+      .from(groupMembers)
+      .innerJoin(groups, eq(groupMembers.groupId, groups.id))
+      .where(
+        and(
+          eq(groupMembers.userId, session.user.id),
+          eq(groupMembers.status, "active"),
+          eq(groups.eventId, group.eventId),
+          eq(groups.isActive, true)
+        )
+      )
+      .limit(1);
+
+    if (existingGroupForEvent) {
+      return { 
+        success: false, 
+        error: `Vous êtes déjà membre du groupe "${existingGroupForEvent.groupName}" pour cet événement` 
+      };
+    }
+
     // Vérifier si l'utilisateur est déjà membre du groupe
     const [existingMember] = await db
       .select()
