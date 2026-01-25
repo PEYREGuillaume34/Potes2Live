@@ -13,6 +13,7 @@ type ConcertCardProps = {
   date: Date;
   time: string | null;
   price: number | null;
+  groupCount: number;
 };
 
 export function ConcertCard({
@@ -28,6 +29,7 @@ export function ConcertCard({
   date,
   time,
   price,
+  groupCount,
 }: ConcertCardProps) {
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString("fr-FR", {
@@ -60,7 +62,10 @@ export function ConcertCard({
                 {artistGenre}
             </div>
         )}
+
+          
         </div>
+
         {/* Content */}
        <div className="p-5">
           <h3 className="font-bold text-xl mb-2 text-gray-800 line-clamp-1">
@@ -107,6 +112,11 @@ export function ConcertCard({
             <span className="text-2xl font-bold text-orange-fonce">
               {price ? `${price}€` : "Gratuit"}
             </span>
+
+             <span className="text-md text-gray-500">
+              {groupCount > 0 ? `${groupCount} groupe${groupCount > 1 ? 's' : ''}` : 'Aucun groupe'}
+            </span>
+            
           </div>
         </div>
       </div>

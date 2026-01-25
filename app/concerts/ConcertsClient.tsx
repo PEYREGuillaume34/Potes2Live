@@ -98,6 +98,7 @@ export function ConcertsClient({
               date={concert.eventDate}
               time={concert.eventTime}
               price={concert.price}
+              groupCount={concert.groupCount}
             />
           ))
         ) : (

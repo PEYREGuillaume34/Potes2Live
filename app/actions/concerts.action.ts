@@ -1,8 +1,9 @@
 "use server";
 
 
+import { sql } from "drizzle-orm";
 import { db } from "../lib/db/drizzle";
-import { artists, events, venues } from "../lib/db/schema";
+import { artists, events, groups, venues } from "../lib/db/schema";
 import { eq, desc, and } from "drizzle-orm";
 
 
@@ -33,6 +34,13 @@ export async function getUpcomingConcerts() {
                 postalCode: venues.postalCode,
                 address: venues.address, 
             },  
+            // ✅ Utiliser une sous-requête SQL pour compter les groupes
+            groupCount: sql<number>`(
+                SELECT COUNT(*)::int
+                FROM ${groups}
+                WHERE ${groups.eventId} = ${events.id}
+                AND ${groups.isActive} = true
+            )`,
         })
         .from(events)
         .innerJoin(artists, eq(events.artistId, artists.id))
@@ -49,38 +57,41 @@ export async function getUpcomingConcerts() {
 
 export async function getConcertsByCity(city: string, postalCode?: string) {
     try {
-        
         const conditions = [eq(events.status, "upcoming")];
 
         if (postalCode) {
-             // Filtre par code postal exact (ex: 75001)
             conditions.push(eq(venues.postalCode, postalCode));
         } else if (city === "Paris") {
-            // Filtre Paris + tous ses arrondissements (75001-75020)
             conditions.push(eq(venues.city, "Paris"));
         } else {
-            // Autre ville
             conditions.push(eq(venues.city, city));
         }
         
         const concerts = await db
         .select({
-        id: events.id,
-        slug: events.slug,
-        title: events.title,
-        imageUrl: events.imageUrl,
-        eventDate: events.eventDate,
-        price: events.price,
-        artist: {
-            name: artists.name,
-            genre : artists.genre,
-            imageUrl: artists.imageUrl,
-        },
-        venue: {
-            name: venues.name,
-            city: venues.city,
-            postalCode: venues.postalCode,
-        },
+            id: events.id,
+            slug: events.slug,
+            title: events.title,
+            imageUrl: events.imageUrl,
+            eventDate: events.eventDate,
+            price: events.price,
+            artist: {
+                name: artists.name,
+                genre : artists.genre,
+                imageUrl: artists.imageUrl,
+            },
+            venue: {
+                name: venues.name,
+                city: venues.city,
+                postalCode: venues.postalCode,
+            },
+            // ✅ Même sous-requête ici
+            groupCount: sql<number>`(
+                SELECT COUNT(*)::int
+                FROM ${groups}
+                WHERE ${groups.eventId} = ${events.id}
+                AND ${groups.isActive} = true
+            )`,
         })
         .from(events)
         .innerJoin(artists, eq(events.artistId, artists.id))
@@ -93,7 +104,7 @@ export async function getConcertsByCity(city: string, postalCode?: string) {
         console.error("Erreur récupération concerts par ville:", error);
         return { success: false, error: "Erreur lors de la récupération des concerts par ville" };
     }
-    }
+}
 
     export async function getConcertBySlug(slug: string) {
         try {
