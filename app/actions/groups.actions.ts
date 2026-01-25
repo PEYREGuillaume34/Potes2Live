@@ -2,7 +2,7 @@
 
 import { db } from "../lib/db/drizzle";
 import { groups, groupMembers, user, events } from "@/app/lib/db/schema";
-import { eq, and, count, sql } from "drizzle-orm";
+import { eq, and, count, sql, is } from "drizzle-orm";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
 
@@ -464,7 +464,7 @@ export async function getGroupMembers(groupId: number) {
       )
       .orderBy(groupMembers.joinedAt);
 
-    return { success: true, data: members };
+    return { success: true, data: members, isMember: members.length > 0 };
   } catch (error) {
     console.error("Erreur récupération membres du groupe:", error);
     return {
@@ -517,6 +517,53 @@ export async function getUserGroupStatus(groupId: number) {
     return {
       success: false,
       error: "Erreur lors de la vérification du statut",
+    };
+  }
+}
+
+// ========================================
+// RÉCUPÉRER UN GROUPE PAR SON ID
+// ========================================
+export async function getGroupById(groupId: number) {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      return { success: false, error: "Non authentifié" };
+    }
+
+    const [group] = await db
+      .select({
+        id: groups.id,
+        name: groups.name,
+        description: groups.description,
+        maxMembers: groups.maxMembers,
+        isActive: groups.isActive,
+        createdAt: groups.createdAt,
+        eventId: groups.eventId,
+        ownerId: {
+          id: user.id,
+          name: user.name,
+          image: user.image,
+        },
+        })
+      .from(groups)
+      .innerJoin(user, eq(groups.ownerId, user.id))
+      .where(eq(groups.id, groupId))
+      .limit(1);
+
+    if (!group) {
+      return { success: false, error: "Groupe introuvable" };
+    }
+
+    return { success: true, data: group };
+  } catch (error) {
+    console.error("Erreur récupération groupe par ID:", error);
+    return {
+      success: false,
+      error: "Erreur lors de la récupération du groupe",
     };
   }
 }
