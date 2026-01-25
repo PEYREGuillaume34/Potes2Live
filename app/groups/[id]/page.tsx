@@ -13,7 +13,7 @@ type PageProps = {
 };
 
 export default async function ChatPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const groupId = parseInt(id);
 
   if (isNaN(groupId)) {

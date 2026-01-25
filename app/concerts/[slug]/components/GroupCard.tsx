@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteGroup, joinGroup, leaveGroup } from "@/app/actions/groups.actions";
-import { Divide, Trash2, Users } from "lucide-react";
+import { Crown, Divide, Trash2, Users } from "lucide-react";
 import { useState } from "react";
 
 
@@ -82,46 +82,31 @@ const handleDeleteGroup = async() => {
 };
 
 return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+    <div className="bg-white/15 rounded-lg p-4 border border-orange-clair">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
             <div className="flex-1">
-                <h2 className="text-lg font-semibold">
+                <h2 className="text-md text-2xl font-semibold text-orange-clair">
                     {group.name}
                     {isOwner && (
-                        <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-1 rounded">
-                            créateur
+                        <span className="ml-2 text-xl px-2 py-1 rounded">
+                            👑
                             </span>
                         )}
                         </h2>
+                        <span className="text-sm text-white">Créé par {group.owner.name} 👑</span>
                         {group.description && (
-                            <p className="text-gray-600 text-sm mt-1">{group.description}</p>
+                            <p className="text-gray-400 text-sm mt-1">{group.description}</p>
                         )}
             </div>
         </div>
 
-        {/* Owner Info */}
-        <div className="flex items-center gap-2 mb-3">
-            {group.owner.image ? (
-                <img
-                    src={group.owner.image}
-                    alt={group.owner.name}
-                    className="w-8 h-8 rounded-full"
-                />
-            ) : (
-                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                    <span className="text-xs font-semibold text-gray-700">
-                    {group.owner.name[0].toUpperCase()}
-                    </span>
-                </div>
-            )}
-            <span className="text-sm text-gray-700">Créé par {group.owner.name}</span>
-        </div>
+     
 
         {/* Members Count */}
 <div className="flex items-center gap-2 mb-4">
     <Users className="w-5 h-5 text-gray-500" />
-    <span className="text-sm text-gray-700">
+    <span className="text-sm text-gray-400">
         {group.memberCount} / {group.maxMembers} membres
     </span>
       {isFull && !isMember && (
@@ -165,6 +150,7 @@ return (
                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
             >
                 {isLoading ? "Rejoindre..." : "Rejoindre le groupe"}
+                
             </button>
         )}
     </div>
