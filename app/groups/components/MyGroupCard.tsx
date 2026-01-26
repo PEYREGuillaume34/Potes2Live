@@ -150,7 +150,7 @@ export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
           {/* Bouton principal : Accéder au chat */}
           <Link
             href={`/groups/${group.id}`}
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="flex items-center justify-center gap-2 bg-orange-fonce text-white px-4 py-3 rounded-lg hover:bg-orange-900 transition-colors font-medium"
           >
             <MessageCircle className="w-5 h-5" />
             Accéder au chat du groupe

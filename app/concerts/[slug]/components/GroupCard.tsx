@@ -1,7 +1,8 @@
 "use client";
 
 import { deleteGroup, joinGroup, leaveGroup } from "@/app/actions/groups.actions";
-import { Crown, Divide, Trash2, Users } from "lucide-react";
+import { Trash2, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
@@ -29,6 +30,7 @@ type GroupCardProps = {
 };
 
 export function GroupCard({ group, currentUserId, userStatus, onUpdate }: GroupCardProps) {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -44,6 +46,7 @@ export function GroupCard({ group, currentUserId, userStatus, onUpdate }: GroupC
 
         if (result.success) {
             onUpdate && onUpdate();
+            router.push(`/groups/${group.id}`);
         } else {
             setError(result.error || "Erreur lors de la tentative de rejoindre.");
         }
@@ -84,6 +87,7 @@ const handleDeleteGroup = async() => {
 return (
     <div className="bg-white/15 rounded-lg p-4 border border-orange-clair">
         {/* Header */}
+        
         <div className="flex items-center justify-between mb-2">
             <div className="flex-1">
                 <h2 className="text-md text-2xl font-semibold text-orange-clair">
@@ -145,7 +149,7 @@ return (
             </button>
         ) : (
             <button
-                onClick={handleJoinGroup}
+                onClick={() => handleJoinGroup()}
                 disabled={isLoading || isFull}
                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
             >

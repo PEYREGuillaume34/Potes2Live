@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 type Message = {
   id: number;
@@ -16,31 +16,46 @@ type MessageItemProps = {
   isOwnMessage: boolean;
 };
 
-export default function MessageItem({ message, isOwnMessage }: MessageItemProps) {
+export default function MessageItem({
+  message,
+  isOwnMessage,
+}: MessageItemProps) {
   return (
-    <div className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}>
-      <div className={`max-w-xs md:max-w-md ${isOwnMessage ? 'bg-blue-500 text-white' : 'bg-white border border-gray-200'} rounded-lg p-3 shadow-sm`}>
+    <div className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}>
+      <div
+        className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-blue-500 text-white" : "bg-white border border-gray-200"} rounded-lg p-3 shadow-sm`}
+      >
         <div className="flex items-center gap-2 mb-1">
-          {message.user.image && (
-            <img 
-              src={message.user.image} 
-              alt={message.user.name} 
+          {message.user.image ? (
+            <img
+              src={message.user.image}
+              alt={message.user.name}
               className="w-6 h-6 rounded-full"
             />
+          ) : (
+            <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-semibold text-gray-700">
+              {message.user.name.charAt(0).toUpperCase()}
+            </div>
           )}
-          <span className={`text-sm font-semibold ${isOwnMessage ? 'text-white' : 'text-gray-800'}`}>
-            {isOwnMessage ? 'Vous' : message.user.name}
+          <span
+            className={`text-sm font-semibold ${isOwnMessage ? "text-white" : "text-gray-800"}`}
+          >
+            {isOwnMessage ? "Vous" : message.user.name}
           </span>
         </div>
-        <p className={`${isOwnMessage ? 'text-white' : 'text-gray-700'} break-words`}>
+        <p
+          className={`${isOwnMessage ? "text-white" : "text-gray-700"} break-words`}
+        >
           {message.content}
         </p>
-        <span className={`text-xs mt-1 block ${isOwnMessage ? 'text-blue-100' : 'text-gray-400'}`}>
-          {new Date(message.createdAt).toLocaleString('fr-FR', { 
-            day: '2-digit',
-            month: '2-digit',
-            hour: '2-digit', 
-            minute: '2-digit' 
+        <span
+          className={`text-xs mt-1 block ${isOwnMessage ? "text-blue-100" : "text-gray-400"}`}
+        >
+          {new Date(message.createdAt).toLocaleString("fr-FR", {
+            day: "2-digit",
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
           })}
         </span>
       </div>

@@ -36,7 +36,7 @@ export default function MessageList({
               className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-blue-500 text-white" : "bg-white border border-gray-200"} rounded-lg p-3 shadow-sm`}
+                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : "bg-white border border-gray-200"} rounded-lg p-3 shadow-sm`}
               >
                 <div className="flex items-center gap-2 mb-1">
                   {message.user.image && (
@@ -47,18 +47,18 @@ export default function MessageList({
                     />
                   )}
                   <span
-                    className={`text-sm font-semibold ${isOwnMessage ? "text-white" : "text-gray-800"}`}
+                    className={`text-sm font-semibold ${isOwnMessage ? "text-white/70" : "text-gray-800"}`}
                   >
                     {isOwnMessage ? "Vous" : message.user.name}
                   </span>
                 </div>
                 <p
-                  className={`${isOwnMessage ? "text-white" : "text-gray-700"} break-words`}
+                  className={`${isOwnMessage ? "text-white" : "text-gray-700"} font-bold break-words`}
                 >
                   {message.content}
                 </p>
                 <span
-                  className={`text-xs mt-1 block ${isOwnMessage ? "text-blue-100" : "text-gray-400"}`}
+                  className={`text-xs mt-1 block ${isOwnMessage ? "text-white/70" : "text-gray-400"}`}
                 >
                   {new Date(message.createdAt).toLocaleString("fr-FR", {
                     day: "2-digit",

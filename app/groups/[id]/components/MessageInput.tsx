@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { sendGroupMessage } from '@/app/actions/messages.actions';
+import { Send } from 'lucide-react';
 
 type MessageInputProps = {
   groupId: number;
@@ -59,14 +60,14 @@ export default function MessageInput({ groupId }: MessageInputProps) {
           }}
           placeholder="Tapez votre message..."
           disabled={isLoading}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-fonce disabled:bg-gray-100"
         />
         <button
           type="submit"
           disabled={isLoading || content.trim().length === 0}
-          className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition font-medium"
+          className="px-6 py-2 bg-orange-fonce text-white rounded-lg hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition font-medium"
         >
-          {isLoading ? 'Envoi...' : 'Envoyer'}
+          {isLoading ? 'Envoi...' : <Send />}
         </button>
       </form>
     </div>
