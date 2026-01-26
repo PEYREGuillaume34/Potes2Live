@@ -1,6 +1,7 @@
 "use client";
 import { createGroup } from "@/app/actions/groups.actions";
 import { Users, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type CreateGroupFormProps = {
@@ -14,6 +15,7 @@ export function CreateGroupForm({
   onSuccess,
   onCancel,
 }: CreateGroupFormProps) {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [maxMembers, setMaxMembers] = useState(10);
@@ -37,6 +39,7 @@ export function CreateGroupForm({
       setDescription("");
       setMaxMembers(10);
       onSuccess && onSuccess();
+      router.push(`/groups/${result.data.id}`);
     } else {
       setError(result.error || "Erreur lors de la création du groupe.");
     }

@@ -106,7 +106,7 @@ export function GroupsList({ eventId }: GroupsListProps) {
         </h3>
 
         {session?.user && canCreateGroup && !showCreateForm && (
-          <button className="flex items-center gap-2 text-orange-clair font-medium"
+          <button className="flex items-center gap-2 text-orange-clair font-medium mr-1"
             onClick={() => setShowCreateForm(true)}>
               En créer un
             <Plus className="w-6 h-6 text-orange-clair border-2 border-orange-clair rounded" />
@@ -132,8 +132,8 @@ export function GroupsList({ eventId }: GroupsListProps) {
 
       {/* Info si user a déjà créé un groupe */}
       {session?.user && !canCreateGroup && !showCreateForm && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded text-blue-700">
-          Vous avez déjà créé un groupe pour cet événement
+        <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded text-blue-700">
+          Vous avez déjà créé un groupe
         </div>
       )}
 

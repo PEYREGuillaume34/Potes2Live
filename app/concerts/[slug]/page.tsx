@@ -1,7 +1,7 @@
 import { getConcertBySlug } from "@/app/actions/concerts.action";
 import { notFound } from "next/dist/client/components/navigation";
 import { GroupsList } from "./components/GroupsList";
-import { ChevronLeft } from "lucide-react";
+import { CalendarDays, ChevronLeft, Clock, MapPin, MicVocal } from "lucide-react";
 import Link from "next/dist/client/link";
 
 type PageProps = {
@@ -41,18 +41,26 @@ export default async function ConcertDetailPage({ params }: PageProps) {
         />
       )}
       <div>
+        <div className="flex mb-3 gap-2.5 text-[1.3rem]">
+        <MicVocal className="text-orange-clair"/> 
         <p className="text-white text-[1.3rem] mb-2">
-          🎤 {concert.artist.name}
+        {concert.artist.name}
         </p>
+        </div>
+        <div className="flex mb-3 gap-2.5 text-[1.1rem]">
+        <MapPin className="text-orange-clair"/>
         <p className="text-white text-[1.1rem] mb-2">
-          🌏 {concert.venue.name} - {concert.venue.city}
+        {concert.venue.name} - {concert.venue.city}
         </p>
+        </div>
 
         <div className="flex mb-4 gap-2.5 text-[1.05rem]">
+          <CalendarDays className="text-orange-clair size-5.5" />
           <p className="text-white mb-2">
-            📅 {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
+          {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
           </p>
-          <p className="text-white mb-2">🕒 {concert.eventTime}</p>
+          <Clock className="text-orange-clair size-5.5" /> 
+          <p className="text-white mb-2">{concert.eventTime}</p>
         </div>
       </div>
 

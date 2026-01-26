@@ -233,38 +233,7 @@ export const groupMessages = pgTable("group_messages", {
   index("messages_created_idx").on(table.createdAt),
 ]);
 
-// ========================================
-// TABLE AVIS / LIKES
-// ========================================
-export const concertReviews = pgTable(
-  "concert_reviews",
-  {
-    id: serial("id").primaryKey(),
-    
-    eventId: integer("event_id")
-      .references(() => events.id, { onDelete: "cascade" })
-      .notNull(),
-    
-    userId: text("user_id")
-      .references(() => user.id, { onDelete: "cascade" })
-      .notNull(),
-    
-    isLiked: boolean("is_liked").default(true).notNull(),
-    rating: integer("rating"), // 1-5 étoiles (optionnel)
-    comment: text("comment"),
-    
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
-      .defaultNow()
-      .$onUpdate(() => new Date())
-      .notNull(),
-  },
-  (table) => ({
-    uniqueReview: uniqueIndex("event_user_review_unique").on(table.eventId, table.userId),
-    eventIdx: index("reviews_event_idx").on(table.eventId),
-    userIdx: index("reviews_user_idx").on(table.userId),
-  })
-);
+
 
 // ========================================
 // RELATIONS DRIZZLE
@@ -275,7 +244,6 @@ export const userRelations = relations(user, ({ many }) => ({
   groups: many(groups),
   groupMemberships: many(groupMembers),
   messages: many(groupMessages),
-  reviews: many(concertReviews),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -310,7 +278,6 @@ export const eventRelations = relations(events, ({ one, many }) => ({
     references: [venues.id],
   }),
   groups: many(groups),
-  reviews: many(concertReviews),
 }));
 
 export const groupRelations = relations(groups, ({ one, many }) => ({
@@ -348,16 +315,8 @@ export const groupMessageRelations = relations(groupMessages, ({ one }) => ({
   }),
 }));
 
-export const concertReviewRelations = relations(concertReviews, ({ one }) => ({
-  event: one(events, {
-    fields: [concertReviews.eventId],
-    references: [events.id],
-  }),
-  user: one(user, {
-    fields: [concertReviews.userId],
-    references: [user.id],
-  }),
-}));
+
+
 
 
 

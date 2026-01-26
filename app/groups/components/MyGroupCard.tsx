@@ -160,7 +160,7 @@ export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
           <div className="flex gap-2">
             <Link
               href={`/concerts/${group.event.slug}`}
-              className="flex-1 text-center bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 transition-colors text-sm"
+              className="flex-1 text-center bg-orange-clair text-white px-4 py-2 rounded hover:bg-orange-fonce transition-colors text-sm"
             >
               Voir l'événement
             </Link>

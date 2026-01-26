@@ -1,3 +1,4 @@
+import { CalendarDays, Clock, MapPin } from "lucide-react";
 import Link from "next/link";
 
 type ConcertCardProps = {
@@ -92,17 +93,18 @@ export function ConcertCard({
 
           <div className="space-y-2 text-sm text-gray-600">
             <div className="flex items-center">
-              <span className="mr-2">📍</span>
+              <span className="mr-2"><MapPin className="text-orange-fonce" /></span>
               <span className="line-clamp-1">
                 {venueName}, {venueCity}
               </span>
             </div>
 
-            <div className="flex items-center">
-              <span className="mr-2">📅</span>
-              <span>
+            <div className="flex items-center gap-2.5">
+              <span><CalendarDays className="text-orange-fonce size-5" /></span>
                 {formatDate(date)}
-                {time && ` • ${time}`}
+                <Clock className="text-orange-fonce size-5" />
+              <span>
+                {time && ` ${time}`}
               </span>
             </div>
           </div>
