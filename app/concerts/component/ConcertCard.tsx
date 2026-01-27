@@ -95,7 +95,7 @@ export function ConcertCard({
             <div className="flex items-center">
               <span className="mr-2"><MapPin className="text-orange-fonce" /></span>
               <span className="line-clamp-1">
-                {venueName}, {venueCity}
+                {venueName}, {venuePostalCode} {venueCity}
               </span>
             </div>
 

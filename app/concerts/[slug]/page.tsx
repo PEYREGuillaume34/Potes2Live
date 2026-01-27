@@ -50,7 +50,7 @@ export default async function ConcertDetailPage({ params }: PageProps) {
         <div className="flex mb-3 gap-2.5 text-[1.1rem]">
         <MapPin className="text-orange-clair"/>
         <p className="text-white text-[1.1rem] mb-2">
-        {concert.venue.name} - {concert.venue.city}
+        {concert.venue.name} - {concert.venue.postalCode} {concert.venue.city}
         </p>
         </div>
 

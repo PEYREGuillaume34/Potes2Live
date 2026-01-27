@@ -165,7 +165,7 @@ export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
               Voir l'événement
             </Link>
 
-            {group.isOwner ? (
+            {/* {group.isOwner ? (
               <button
                 onClick={handleDelete}
                 disabled={isLoading}
@@ -185,7 +185,7 @@ export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
                 <LogOut className="w-4 h-4" />
                 {isLoading ? "..." : "Quitter"}
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </div>

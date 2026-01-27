@@ -21,7 +21,7 @@ export default function MessageList({
   currentUserId,
 }: MessageListProps) {
   return (
-    <div className="flex flex-col gap-3 p-4 h-96 overflow-y-auto bg-gray-50">
+    <div className="flex flex-col gap-3 p-4 h-96 overflow-y-auto bg-white/10">
       {messages.length === 0 ? (
         <p className="text-gray-500 text-center py-8">
           Aucun message pour le moment. Soyez le premier à écrire ! 💬
@@ -36,7 +36,7 @@ export default function MessageList({
               className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : "bg-white border border-gray-200"} rounded-lg p-3 shadow-sm`}
+                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : " border border-gray-200"} rounded-lg p-3 shadow-sm`}
               >
                 <div className="flex items-center gap-2 mb-1">
                   {message.user.image && (
