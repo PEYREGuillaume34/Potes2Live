@@ -51,7 +51,8 @@ export default function MessageInput({ groupId }: MessageInputProps) {
         </div>
       )}
       <form onSubmit={handleSubmit} className="flex gap-2 p-4">
-        <input
+        <div className="flex-1 flex items-center gap-2">
+          <input
           type="text"
           value={content}
           onChange={(e) => {
@@ -69,6 +70,7 @@ export default function MessageInput({ groupId }: MessageInputProps) {
         >
           {isLoading ? 'Envoi...' : <Send />}
         </button>
+        </div>
       </form>
     </div>
   );

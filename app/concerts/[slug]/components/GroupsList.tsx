@@ -32,7 +32,7 @@ export function GroupsList({ eventId }: GroupsListProps) {
   const [groupsStatus, setGroupsStatus] = useState<Map<number, any>>(new Map());
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [canCreateGroup, setCanCreateGroup] = useState(true);
+  const [hasGroup, setHasGroup] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchGroups = async () => {
@@ -53,10 +53,10 @@ export function GroupsList({ eventId }: GroupsListProps) {
 
       setGroups(groupsResult.data || []);
 
-      // Vérfier si l'utilisateur peut créer un groupe
+      // Vérfier si l'utilisateur peut créer ou rejoindre un groupe
       if (session?.user) {
         const checkResult = await checkUserGroupForEvent(eventId);
-        setCanCreateGroup(!checkResult.hasGroup);
+        setHasGroup(checkResult.hasGroup);
 
         // Récupérer le statut de l'utilisateur pour chaque groupe
         const statusMap = new Map<number, any>();
@@ -105,7 +105,7 @@ export function GroupsList({ eventId }: GroupsListProps) {
           Groupes
         </h3>
 
-        {session?.user && canCreateGroup && !showCreateForm && (
+        {session?.user && !hasGroup && !showCreateForm && (
           <button className="flex items-center gap-2 text-orange-clair font-medium mr-1"
             onClick={() => setShowCreateForm(true)}>
               En créer un
@@ -131,9 +131,9 @@ export function GroupsList({ eventId }: GroupsListProps) {
       )}
 
       {/* Info si user a déjà créé un groupe */}
-      {session?.user && !canCreateGroup && !showCreateForm && (
+      {session?.user && hasGroup && !showCreateForm && (
         <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded text-blue-700">
-          Vous avez déjà créé un groupe
+          Vous avez déjà rejoint ou créé un groupe
         </div>
       )}
 

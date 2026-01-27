@@ -61,19 +61,29 @@ export async function checkUserGroupForEvent(eventId: number) {
       return { success: false, error: "Non authentifié" };
     }
 
-    const [existingGroup] = await db
-      .select()
-      .from(groups)
+    const [membership] = await db
+      .select({
+        groupId: groupMembers.groupId,
+        role: groupMembers.role,
+      })
+      .from(groupMembers)
+      .innerJoin(groups, eq(groupMembers.groupId, groups.id))
       .where(
         and(
+          eq(groupMembers.userId, session.user.id),
+          eq(groupMembers.status, "active"),
           eq(groups.eventId, eventId),
-          eq(groups.ownerId, session.user.id),
           eq(groups.isActive, true)
         )
       )
       .limit(1);
 
-    return { success: true, hasGroup: !!existingGroup, group: existingGroup };
+    return {
+      success: true,
+      hasGroup: !!membership,
+      groupId: membership?.groupId ?? null,
+      role: membership?.role ?? null,
+    };
   } catch (error) {
     console.error("Erreur vérification groupe existant:", error);
     return {
@@ -82,6 +92,7 @@ export async function checkUserGroupForEvent(eventId: number) {
     };
   }
 }
+
 
 // ========================================
 // CRÉER UN GROUPE
