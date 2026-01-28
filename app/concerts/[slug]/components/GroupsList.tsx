@@ -132,7 +132,7 @@ export function GroupsList({ eventId }: GroupsListProps) {
 
       {/* Info si user a déjà créé un groupe */}
       {session?.user && hasGroup && !showCreateForm && (
-        <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded text-blue-700">
+        <div className="mb-6 p-3 bg-orange-50 border border-orange-200 rounded text-orange-fonce">
           Vous avez déjà rejoint ou créé un groupe
         </div>
       )}

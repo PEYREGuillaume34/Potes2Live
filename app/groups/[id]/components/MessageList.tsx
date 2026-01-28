@@ -36,7 +36,7 @@ export default function MessageList({
               className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : " border border-gray-200"} rounded-lg p-3 shadow-sm`}
+                className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : " border bg-gray-200"} rounded-lg p-3 shadow-sm`}
               >
                 <div className="flex items-center gap-2 mb-1">
                   {message.user.image && (
