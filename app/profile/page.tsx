@@ -23,10 +23,10 @@ export default function ProfilePage() {
                 <div className="text-white">
                     <h2 className="text-xl font-semibold mb-2">Bienvenue sur votre profil !</h2>
                     <p className="mb-6">Gérez vos informations personnelles et vos préférences ici.</p>
-                    <h2 className="text-xl font-semibold mb-2">Historique de concerts</h2>
-                    <p className="mb-6">Vos concerts passés apparaîtront ici.</p>
-                    <h2 className="text-xl font-semibold mb-2">Tes artistes préférés</h2>
-                    <p className="mb-6">Vos artistes favoris apparaîtront ici.</p>
+                    <h2 className="text-xl font-semibold mb-2 mt-4">Historique de concerts</h2>
+                    <p className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4 w-full">Vos concerts passés apparaîtront ici.</p>
+                    <h2 className="text-xl font-semibold mb-2 mt-4">Tes artistes préférés</h2>
+                    <p className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4 w-full">Vos artistes favoris apparaîtront ici.</p>
                 </div>
             </main>
         </div>
