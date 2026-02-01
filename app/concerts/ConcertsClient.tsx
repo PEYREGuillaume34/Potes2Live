@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ConcertCard } from "./component/ConcertCard";
-
+import type { ConcertsClientProps } from "@/app/type";
 
 const PARIS_ARRONDISSEMENTS = [
   75001, 75002, 75003, 75004, 75005, 75006, 75007, 75008, 75009, 75010,
@@ -15,11 +15,7 @@ export function ConcertsClient({
   concerts,
   initialCity,
   initialPostalCode,
-}: {
-  concerts: any[];
-  initialCity?: string;
-  initialPostalCode?: string;
-}) {
+}: ConcertsClientProps) {
   const router = useRouter();
 
   // Fonction générique pour changer de ville

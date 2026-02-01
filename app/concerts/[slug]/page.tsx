@@ -3,10 +3,9 @@ import { notFound } from "next/dist/client/components/navigation";
 import { GroupsList } from "./components/GroupsList";
 import { CalendarDays, ChevronLeft, Clock, MapPin, MicVocal } from "lucide-react";
 import Link from "next/dist/client/link";
+import type { PageProps } from "@/app/type";
 
-type PageProps = {
-  params: { slug: string };
-};
+
 
 export default async function ConcertDetailPage({ params }: PageProps) {
   const { slug } = await params;

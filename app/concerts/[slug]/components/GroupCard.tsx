@@ -8,29 +8,7 @@ import {
 import { Crown, Trash2, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-type GroupCardProps = {
-  group: {
-    id: number;
-    name: string;
-    description: string | null;
-    maxMembers: number;
-    ownerId: string;
-    owner: {
-      id: string;
-      name: string;
-      image: string | null;
-    };
-    memberCount: number;
-  };
-  currentUserId?: string;
-  userStatus?: {
-    isMember: boolean;
-    role: "owner" | "member" | null;
-    status: "active" | "left" | null;
-  };
-  onUpdate?: () => void;
-};
+import type { GroupCardProps } from "@/app/type";
 
 export function GroupCard({
   group,

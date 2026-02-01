@@ -25,13 +25,19 @@ export default async function ConcertsPage({
     );
   }
 
+  const concerts = (result.data ?? []).map((concert) => ({
+    ...concert,
+    eventTime: concert.eventTime ?? null,
+    groupCount: concert.groupCount ?? 0,
+  }));
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <p className="text-white text-center mb-8">
         Découvrez les prochains concerts et rejoignez des groupes de fans pour y
         assister ensemble!
       </p>
-      <ConcertsClient concerts={result.data} initialCity={params.city} initialPostalCode={params.postalCode} />
+      <ConcertsClient concerts={concerts} initialCity={params.city} initialPostalCode={params.postalCode} />
     </div>
   );
 }

@@ -6,30 +6,12 @@ import { useSession } from "@/app/lib/auth-client";
 import { Loader2, Plus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CreateGroupForm } from "./CreateGroupForm";
-
-type GroupsListProps = {
-  eventId: number;
-};
-
-type GroupWithMembers = {
-  id: number;
-  name: string;
-  description: string | null;
-  maxMembers: number;
-  createdAt: Date;
-  ownerId: string;
-  owner: {
-    id: string;
-    name: string;
-    image: string | null;
-  };
-  memberCount: number;
-};
+import type { GroupsListProps, GroupWithMembers, UserGroupStatus } from "@/app/type";
 
 export function GroupsList({ eventId }: GroupsListProps) {
   const { data: session } = useSession();
   const [groups, setGroups] = useState<GroupWithMembers[]>([]);
-  const [groupsStatus, setGroupsStatus] = useState<Map<number, any>>(new Map());
+  const [groupsStatus, setGroupsStatus] = useState<Map<number, UserGroupStatus>>(new Map());
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [hasGroup, setHasGroup] = useState(false);
@@ -56,17 +38,17 @@ export function GroupsList({ eventId }: GroupsListProps) {
       // Vérfier si l'utilisateur peut créer ou rejoindre un groupe
       if (session?.user) {
         const checkResult = await checkUserGroupForEvent(eventId);
-        setHasGroup(checkResult.hasGroup);
+        setHasGroup(checkResult.hasGroup ?? false);
 
         // Récupérer le statut de l'utilisateur pour chaque groupe
-        const statusMap = new Map<number, any>();
+        const statusMap = new Map<number, UserGroupStatus>();
         for (const group of groupsResult.data || []) {
           const status = await getUserGroupStatus(group.id);
           if (status.success) {
             statusMap.set(group.id, {
-              isMember: status.isMember,
-              role: status.role,
-              status: status.status,
+              isMember: status.isMember ?? false,
+              role: status.role as "member" | "owner" | null,
+              status: status.status as "active" | "left" | null,
             });
           }
         }
@@ -154,8 +136,8 @@ export function GroupsList({ eventId }: GroupsListProps) {
             <GroupCard
               key={group.id}
               group={group}
-              currentUserId={session?.user?.id}
-              userStatus={groupsStatus.get(group.id)}
+              currentUserId={session?.user?.id ?? null}
+              userStatus={groupsStatus.get(group.id) ?? null}
               onUpdate={handleGroupUpdate}
             />
           ))}

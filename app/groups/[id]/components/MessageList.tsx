@@ -1,20 +1,6 @@
 "use client";
 
-type Message = {
-  id: number;
-  content: string;
-  createdAt: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  };
-};
-
-type MessageListProps = {
-  messages: Message[];
-  currentUserId: string;
-};
+import type { MessageListProps } from "@/app/type";
 
 export default function MessageList({
   messages,

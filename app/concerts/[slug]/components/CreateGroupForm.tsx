@@ -3,12 +3,7 @@ import { createGroup } from "@/app/actions/groups.actions";
 import { Users, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-type CreateGroupFormProps = {
-  eventId: number;
-  onSuccess?: () => void;
-  onCancel?: () => void;
-};
+import type { CreateGroupFormProps } from "@/app/type";
 
 export function CreateGroupForm({
   eventId,
@@ -34,7 +29,7 @@ export function CreateGroupForm({
       maxMembers,
     );
 
-    if (result.success) {
+    if (result.success && result.data) {
       setName("");
       setDescription("");
       setMaxMembers(10);

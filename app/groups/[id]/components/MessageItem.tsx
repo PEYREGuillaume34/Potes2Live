@@ -1,20 +1,6 @@
 "use client";
 
-type Message = {
-  id: number;
-  content: string;
-  createdAt: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  };
-};
-
-type MessageItemProps = {
-  message: Message;
-  isOwnMessage: boolean;
-};
+import type { MessageItemProps } from "@/app/type";
 
 export default function MessageItem({
   message,

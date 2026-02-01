@@ -1,22 +1,6 @@
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
-
-type Message = {
-  id: number;
-  content: string;
-  createdAt: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  };
-};
-
-type ChatBoxProps = {
-  groupId: number;
-  messages: Message[];
-  currentUserId: string;
-};
+import type { ChatBoxProps } from "@/app/type";
 
 export default function ChatBox({ groupId, messages, currentUserId }: ChatBoxProps) {
   return (

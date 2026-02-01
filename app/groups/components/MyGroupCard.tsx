@@ -3,29 +3,8 @@
 import { useState } from "react";
 import { leaveGroup, deleteGroup } from "@/app/actions/groups.actions";
 import Link from "next/link";
-import { Users, Calendar, MapPin, Trash2, LogOut, Crown, MessageCircle, Speaker } from "lucide-react";
-
-type MyGroupCardProps = {
-  group: {
-    id: number;
-    name: string;
-    description: string | null;
-    maxMembers: number;
-    createdAt: Date;
-    isOwner: boolean;
-    memberRole: "owner" | "member";
-    memberCount: number;
-    event: {
-      id: number;
-      slug: string;
-      title: string;
-      imageUrl: string | null;
-      eventDate: Date;
-      eventTime: string | null;
-    };
-  };
-  onUpdate?: () => void;
-};
+import { Users, Calendar, MapPin, Speaker, Trash2, LogOut, Crown, MessageCircle } from "lucide-react";
+import type { MyGroupCardProps } from "@/app/type";
 
 export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
   const [isLoading, setIsLoading] = useState(false);
