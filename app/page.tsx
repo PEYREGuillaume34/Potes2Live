@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <div>
       <img
-        src="/logo/logoPDL.svg"
+        src="/logo/logoPdl.svg"
         alt="PotesdeLiveLogo"
         className="mx-auto my-1 max-w-2xs"
       />
