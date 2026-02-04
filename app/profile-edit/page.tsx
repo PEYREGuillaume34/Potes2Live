@@ -81,7 +81,7 @@ export default function EditProfilePage() {
   };
 
   return (
-    <div className="flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-black">
       {/* Header fixe */}
       <header className="fixed top-0 left-0 right-0 bg-black z-10 border-b border-gray-700">
         <div className="flex items-center justify-between px-4 py-4">
