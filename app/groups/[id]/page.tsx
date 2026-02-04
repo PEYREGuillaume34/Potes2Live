@@ -39,14 +39,14 @@ export default async function ChatPage({ params }: PageProps) {
 
   // Récupérer les infos du groupe
   const groupResponse = await getGroupById(groupId);
-  if (!groupResponse || !groupResponse.success) {
+  if (!groupResponse || !groupResponse.success || !groupResponse.data) {
     notFound();
   }
   const group = groupResponse.data;
 
   // Récupérer les messages du groupe
   const messagesResponse = await getGroupMessages(groupId);
-  const messages = messagesResponse.success ? messagesResponse.data : [];
+  const messages = messagesResponse.success && messagesResponse.data ? messagesResponse.data : [];
 
   // Récupérer les membres du groupe
   const members = membersResponse.success ? membersResponse.data : [];
