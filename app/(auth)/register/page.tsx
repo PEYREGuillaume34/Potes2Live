@@ -34,7 +34,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-black px-4">
+    <div className="flex items-center justify-center bg-gradient-to-br bg-black px-4">
       <div className="bg-black p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-orange-fonce mb-2">INSCRIPTION</h1>

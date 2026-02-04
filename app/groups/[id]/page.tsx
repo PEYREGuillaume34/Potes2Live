@@ -52,7 +52,7 @@ export default async function ChatPage({ params }: PageProps) {
   const members = membersResponse.success ? membersResponse.data : [];
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="bg-black">
       {/* En-tête fixe */}
       <header className="fixed top-0 left-0 right-0 bg-black border-b border-gray-700 z-10">
         <div className="flex gap-2 px-5 py-4">
