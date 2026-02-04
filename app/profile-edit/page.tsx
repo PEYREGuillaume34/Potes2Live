@@ -6,9 +6,20 @@ import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
 import { updateUserProfile } from "../actions/user";
 
+interface ExtendedUser {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  email: string;
+  emailVerified: boolean;
+  name: string;
+  image?: string | null;
+  bio?: string | null;
+}
 
 export default function EditProfilePage() {
   const { data: session } = useSession();
+  const user = session?.user as ExtendedUser | undefined;
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,14 +35,14 @@ export default function EditProfilePage() {
 
   // Synchroniser avec la session
   useEffect(() => {
-    if (session?.user) {
-      setName(session.user.name || "");
-      setEmail(session.user.email || "");
-      setBio(session.user.bio || "");
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+      setBio(user.bio || "");
       setCurrentPassword("");
       setNewPassword("");
     }
-  }, [session]);
+  }, [user]);
 
   // Fonction de sauvegarde
   const handleSave = async () => {
@@ -65,9 +76,9 @@ export default function EditProfilePage() {
 
   // Fonction d'annulation
   const handleCancel = () => {
-    setName(session?.user?.name || "");
-    setEmail(session?.user?.email || "");
-    setBio(session?.user?.bio || "");
+    setName(user?.name || "");
+    setEmail(user?.email || "");
+    setBio(user?.bio || "");
     setCurrentPassword("");
     setNewPassword("");
     setError(null);
@@ -116,15 +127,15 @@ export default function EditProfilePage() {
           {/* Photo de profil */}
           <div className="flex flex-col items-center mb-8">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center mb-3">
-              {session?.user?.image ? (
+              {user?.image ? (
                 <img 
-                  src={session.user.image} 
+                  src={user.image} 
                   alt="Photo de profil" 
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (
                 <span className="text-4xl text-white">
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || "U"}
+                  {user?.name?.charAt(0)?.toUpperCase() || "U"}
                 </span>
               )}
             </div>
@@ -144,7 +155,7 @@ export default function EditProfilePage() {
                   Nom complet
                 </label>
                 <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
-                  {session?.user?.name}
+                  {user?.name}
                 </div>
               </div>
 
@@ -154,7 +165,7 @@ export default function EditProfilePage() {
                   Adresse e-mail
                 </label>
                 <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
-                  {session?.user?.email}
+                  {user?.email}
                 </div>
               </div>
 
@@ -164,7 +175,7 @@ export default function EditProfilePage() {
                   Bio
                 </label>
                 <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
-                  {session?.user?.bio || "Pas encore de bio"}
+                  {user?.bio || "Pas encore de bio"}
                 </div>
               </div>
 
