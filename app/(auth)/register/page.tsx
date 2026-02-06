@@ -58,7 +58,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="Marie Dupont"
             />
           </div>
@@ -73,7 +73,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="marie@exemple.com"
             />
           </div>
@@ -89,7 +89,7 @@ export default function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
+              className="w-full px-4 py-3 bg-white border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="••••••••"
             />
             <p className="text-xs text-white mt-1">Minimum 8 caractères</p>

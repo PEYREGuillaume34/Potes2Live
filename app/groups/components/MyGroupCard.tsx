@@ -1,53 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { leaveGroup, deleteGroup } from "@/app/actions/groups.actions";
 import Link from "next/link";
-import { Users, Calendar, MapPin, Speaker, Trash2, LogOut, Crown, MessageCircle } from "lucide-react";
+import { Users, Calendar, MapPin, Speaker, Crown } from "lucide-react";
 import type { MyGroupCardProps } from "@/app/type";
 
-export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleLeave = async () => {
-    if (!confirm("Êtes-vous sûr de vouloir quitter ce groupe ?")) return;
-
-    setIsLoading(true);
-    setError(null);
-
-    const result = await leaveGroup(group.id);
-
-    if (result.success) {
-      onUpdate?.();
-    } else {
-      setError(result.error || "Erreur lors de la tentative de quitter");
-    }
-
-    setIsLoading(false);
-  };
-
-  const handleDelete = async () => {
-    if (
-      !confirm(
-        "Êtes-vous sûr de vouloir supprimer ce groupe ? Cette action est irréversible et tous les membres seront retirés."
-      )
-    )
-      return;
-
-    setIsLoading(true);
-    setError(null);
-
-    const result = await deleteGroup(group.id);
-
-    if (result.success) {
-      onUpdate?.();
-    } else {
-      setError(result.error || "Erreur lors de la suppression");
-    }
-
-    setIsLoading(false);
-  };
+export function MyGroupCard({ group }: MyGroupCardProps) {
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString("fr-FR", {
@@ -116,13 +73,6 @@ export function MyGroupCard({ group, onUpdate }: MyGroupCardProps) {
             {group.memberCount} / {group.maxMembers} membres
           </span>
         </div>
-
-        {/* Error Message */}
-        {error && (
-          <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-600">
-            {error}
-          </div>
-        )}
 
         {/* Actions */}
         <div className="flex flex-col gap-2">

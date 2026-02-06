@@ -117,6 +117,12 @@ export default function EditProfilePage() {
               {error}
             </div>
           )}
+
+          {!user && (
+            <div className="bg-yellow-500/10 border border-yellow-500 text-yellow-500 px-4 py-3 rounded-lg mb-4">
+              Vous devez être connecté pour éditer votre profil.
+            </div>
+          )}
           
           {success && (
             <div className="bg-green-500/10 border border-green-500 text-green-500 px-4 py-3 rounded-lg mb-4">
@@ -139,7 +145,7 @@ export default function EditProfilePage() {
                 </span>
               )}
             </div>
-            {isEditing && (
+            {isEditing && user && (
               <button className="text-orange-fonce text-sm font-medium">
                 Changer la photo
               </button>
@@ -155,7 +161,7 @@ export default function EditProfilePage() {
                   Nom complet
                 </label>
                 <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
-                  {user?.name}
+                  {user?.name || "Non disponible"}
                 </div>
               </div>
 
@@ -165,7 +171,7 @@ export default function EditProfilePage() {
                   Adresse e-mail
                 </label>
                 <div className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
-                  {user?.email}
+                  {user?.email || "Non disponible"}
                 </div>
               </div>
 
@@ -257,53 +263,51 @@ export default function EditProfilePage() {
                   className="bg-gray-800 border border-gray-700 text-white rounded-lg p-4 w-full"
                   placeholder="Votre nouveau mot de passe"
                 />
+              </div>
             </div>
-          </div>
           )}
 
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-6">
-            {!isEditing ? (
-              <button
-                onClick={() => setIsEditing(true)}
-                className="bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
-              >
-               <UserRoundPen />
-                Éditer le profil
-              </button>
-            ) : (
-              <div className="flex flex-col sm:flex-row sm:gap-4">
+          {/* Actions - Affichées uniquement si l'utilisateur est connecté */}
+          {user && (
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-6">
+              {!isEditing ? (
                 <button
-                  onClick={handleSave}
-                  disabled={isLoading}
-                  className="bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  onClick={() => setIsEditing(true)}
+                  className="bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
                 >
-                  {isLoading ? (
-                    <Check />
-                  ) : (
-                    <Check />
-                  )}
-                  {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
+                  <UserRoundPen />
+                  Éditer le profil
                 </button>
-                <button
-                  onClick={handleCancel}
-                  className="bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
-                >
-                   <X />
-                  Annuler
-                </button>
-              </div>
-            )}
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleSave}
+                    disabled={isLoading}
+                    className="bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    <Check />
+                    {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    className="bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+                  >
+                    <X />
+                    Annuler
+                  </button>
+                </div>
+              )}
 
-            {/* Déconnexion */}
-            <button
-              onClick={handleSignOut}
-              className="sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
-            >
-              <Power />
-              Déconnexion
-            </button>
-          </div>
+              {/* Déconnexion */}
+              <button
+                onClick={handleSignOut}
+                className="sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+              >
+                <Power />
+                Déconnexion
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </div>

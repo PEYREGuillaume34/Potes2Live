@@ -1,12 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signOut } from "@/app/lib/auth-client";
-import { useState } from "react";
 import { CircleUserRound, House, MessageCircleMore, Speaker, Users } from "lucide-react";
 
 export function Navbar() {
-  const { data: session, isPending } = useSession();
 
   return (
     <nav className="fixed bottom-0 md:top-0 md:bottom-auto left-0 right-0 bg-orange-fonce z-50">
