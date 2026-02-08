@@ -70,7 +70,7 @@ export function ConcertsClient({
         <div className="relative">
           <input
             type="text"
-            placeholder="Rechercher par artiste, genre, ville..."
+            placeholder="Rechercher par artiste, genre, salle..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-3 pl-12 bg-gray-800 text-white rounded-lg border border-gray-700 focus:outline-none focus:border-orange-fonce focus:ring-2 focus:ring-orange-fonce/20 transition-all"
