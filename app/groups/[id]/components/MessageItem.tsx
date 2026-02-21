@@ -12,9 +12,9 @@ export default function MessageItem({
         className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-blue-500 text-white" : "bg-white border border-gray-200"} rounded-lg p-3 shadow-sm`}
       >
         <div className="flex items-center gap-2 mb-1">
-          {message.user.image ? (
+          {message.user.avatar_url ? (
             <img
-              src={message.user.image}
+              src={message.user.avatar_url}
               alt={message.user.name}
               className="w-6 h-6 rounded-full"
             />

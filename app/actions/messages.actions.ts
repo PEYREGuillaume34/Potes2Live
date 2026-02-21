@@ -43,7 +43,7 @@ try{
         user: {
             id: user.id,
             name: user.name,
-            image: user.image,
+            avatar_url: user.avatar_url,
         },
     })
     .from(groupMessages)

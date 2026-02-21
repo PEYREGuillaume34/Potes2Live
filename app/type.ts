@@ -25,6 +25,7 @@ export type User = {
 export type UserBasic = {
   id: string;
   name: string;
+  avatar_url?: string | null;
 };
 
 // ========================================

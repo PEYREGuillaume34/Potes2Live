@@ -25,9 +25,9 @@ export default function MessageList({
                 className={`max-w-xs md:max-w-md ${isOwnMessage ? "bg-orange-clair text-white" : " border bg-gray-200"} rounded-lg p-3 shadow-sm`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  {message.user.image && (
+                  {message.user.avatar_url && (
                     <img
-                      src={message.user.image}
+                      src={message.user.avatar_url}
                       alt={message.user.name}
                       className="w-6 h-6 rounded-full"
                     />

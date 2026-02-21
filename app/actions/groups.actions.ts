@@ -22,7 +22,7 @@ export async function getGroupsByEvent(eventId: number) {
         owner: {
           id: user.id,
           name: user.name,
-          image: user.image,
+          avatar_url: user.avatar_url,
         },
         memberCount: count(groupMembers.id),
       })
@@ -462,7 +462,7 @@ export async function getGroupMembers(groupId: number) {
         user: {
           id: user.id,
           name: user.name,
-          image: user.image,
+          avatar_url: user.avatar_url,
         },
       })
       .from(groupMembers)
@@ -557,7 +557,7 @@ export async function getGroupById(groupId: number) {
         ownerId: {
           id: user.id,
           name: user.name,
-          image: user.image,
+          avatar_url: user.avatar_url,
         },
         })
       .from(groups)
