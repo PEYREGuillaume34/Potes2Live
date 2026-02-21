@@ -251,7 +251,6 @@ async function seed() {
           postalCode: "75010",
           latitude: 48.875556,
           longitude: 2.367778,
-          capacity: 300,
         },
         {
           name: "La Maroquinerie",
@@ -260,7 +259,6 @@ async function seed() {
           postalCode: "75020",
           latitude: 48.872222,
           longitude: 2.389167,
-          capacity: 600,
         },
         {
           name: "La Flèche d'Or",
@@ -269,7 +267,6 @@ async function seed() {
           postalCode: "75020",
           latitude: 48.856389,
           longitude: 2.404444,
-          capacity: 450,
         },
         {
           name: "Pop-Up du Label",
@@ -278,7 +275,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.858611,
           longitude: 2.372778,
-          capacity: 250,
         },
         {
           name: "Petit Bain",
@@ -287,7 +283,6 @@ async function seed() {
           postalCode: "75013",
           latitude: 48.833889,
           longitude: 2.377222,
-          capacity: 350,
         },
         {
           name: "Supersonic",
@@ -296,7 +291,6 @@ async function seed() {
           postalCode: "75012",
           latitude: 48.850278,
           longitude: 2.370556,
-          capacity: 400,
         },
         {
           name: "Glazart",
@@ -305,7 +299,6 @@ async function seed() {
           postalCode: "75019",
           latitude: 48.896944,
           longitude: 2.387778,
-          capacity: 800,
         },
         {
           name: "Le Gibus",
@@ -314,7 +307,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.868333,
           longitude: 2.367222,
-          capacity: 500,
         },
         {
           name: "Silencio",
@@ -323,7 +315,6 @@ async function seed() {
           postalCode: "75002",
           latitude: 48.869444,
           longitude: 2.342778,
-          capacity: 300,
         },
         {
           name: "Batofar",
@@ -332,7 +323,6 @@ async function seed() {
           postalCode: "75013",
           latitude: 48.832778,
           longitude: 2.376389,
-          capacity: 350,
         },
         {
           name: "Djoon",
@@ -341,7 +331,6 @@ async function seed() {
           postalCode: "75013",
           latitude: 48.835278,
           longitude: 2.367500,
-          capacity: 400,
         },
         {
           name: "Concrete",
@@ -350,7 +339,6 @@ async function seed() {
           postalCode: "75012",
           latitude: 48.842500,
           longitude: 2.374167,
-          capacity: 500,
         },
         {
           name: "Le Rex Club",
@@ -359,7 +347,6 @@ async function seed() {
           postalCode: "75002",
           latitude: 48.871111,
           longitude: 2.346944,
-          capacity: 650,
         },
         {
           name: "Le Nouveau Casino",
@@ -368,7 +355,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.866389,
           longitude: 2.381667,
-          capacity: 400,
         },
         {
           name: "Le Trabendo",
@@ -377,7 +363,6 @@ async function seed() {
           postalCode: "75019",
           latitude: 48.894167,
           longitude: 2.393333,
-          capacity: 700,
         },
         {
           name: "Le Backstage by the Mill",
@@ -386,7 +371,6 @@ async function seed() {
           postalCode: "75012",
           latitude: 48.839722,
           longitude: 2.379444,
-          capacity: 350,
         },
         {
           name: "La Mécanique Ondulatoire",
@@ -395,7 +379,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.855833,
           longitude: 2.382500,
-          capacity: 280,
         },
         {
           name: "La Java",
@@ -404,7 +387,6 @@ async function seed() {
           postalCode: "75010",
           latitude: 48.869722,
           longitude: 2.371389,
-          capacity: 350,
         },
         {
           name: "La Boule Noire",
@@ -413,7 +395,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.883056,
           longitude: 2.340556,
-          capacity: 500,
         },
         {
           name: "L'International",
@@ -422,7 +403,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.867500,
           longitude: 2.379722,
-          capacity: 200,
         },
         // NOUVELLES SALLES
         {
@@ -432,7 +412,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.882500,
           longitude: 2.341111,
-          capacity: 1200,
         },
         {
           name: "La Cigale",
@@ -441,7 +420,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.882778,
           longitude: 2.340278,
-          capacity: 1389,
         },
         {
           name: "Le Trianon",
@@ -450,7 +428,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.882222,
           longitude: 2.340833,
-          capacity: 800,
         },
         {
           name: "L'Olympia",
@@ -459,7 +436,6 @@ async function seed() {
           postalCode: "75009",
           latitude: 48.870556,
           longitude: 2.328056,
-          capacity: 2000,
         },
         {
           name: "Zénith Paris",
@@ -468,7 +444,6 @@ async function seed() {
           postalCode: "75019",
           latitude: 48.894722,
           longitude: 2.393611,
-          capacity: 6300,
         },
         {
           name: "La Gaîté Lyrique",
@@ -477,7 +452,6 @@ async function seed() {
           postalCode: "75003",
           latitude: 48.867222,
           longitude: 2.355556,
-          capacity: 500,
         },
         {
           name: "Le Divan du Monde",
@@ -486,7 +460,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.881944,
           longitude: 2.339167,
-          capacity: 350,
         },
         {
           name: "La Bellevilloise",
@@ -495,7 +468,6 @@ async function seed() {
           postalCode: "75020",
           latitude: 48.872500,
           longitude: 2.389722,
-          capacity: 600,
         },
         {
           name: "Le Hasard Ludique",
@@ -504,7 +476,6 @@ async function seed() {
           postalCode: "75018",
           latitude: 48.896389,
           longitude: 2.328333,
-          capacity: 400,
         },
         {
           name: "Badaboum",
@@ -513,7 +484,6 @@ async function seed() {
           postalCode: "75011",
           latitude: 48.853611,
           longitude: 2.373056,
-          capacity: 300,
         },
       ])
       .returning();
