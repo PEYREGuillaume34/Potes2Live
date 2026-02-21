@@ -16,7 +16,6 @@ export type User = {
   id: string;
   name: string;
   email: string;
-  image: string | null;
   avatar_url?: string | null;
   bio?: string | null;
   createdAt: Date;
@@ -26,7 +25,6 @@ export type User = {
 export type UserBasic = {
   id: string;
   name: string;
-  image: string | null;
 };
 
 // ========================================
@@ -61,7 +59,6 @@ export type Venue = {
   address?: string | null;
   latitude?: number | null;
   longitude?: number | null;
-  capacity?: number | null;
 };
 
 export type VenueBasic = {

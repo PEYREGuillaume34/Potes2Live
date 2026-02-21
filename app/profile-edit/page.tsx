@@ -12,8 +12,8 @@ interface ExtendedUser {
   updatedAt: Date;
   email: string;
   emailVerified: boolean;
+  avatar_url?: string | null;
   name: string;
-  image?: string | null;
   bio?: string | null;
 }
 
@@ -133,9 +133,9 @@ export default function EditProfilePage() {
           {/* Photo de profil */}
           <div className="flex flex-col items-center mb-8">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center mb-3">
-              {user?.image ? (
+              {user?.avatar_url ? (
                 <img 
-                  src={user.image} 
+                  src={user.avatar_url} 
                   alt="Photo de profil" 
                   className="w-full h-full rounded-full object-cover"
                 />

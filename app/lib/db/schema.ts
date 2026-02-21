@@ -21,7 +21,6 @@ export const user = pgTable("user", {
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
-  image: text("image"),
   avatar_url: text("avatar_url"),
   bio: text("bio"), 
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -117,7 +116,6 @@ export const venues = pgTable("venues", {
   postalCode: varchar("postal_code", { length: 10 }),
   latitude: doublePrecision("latitude"),
   longitude: doublePrecision("longitude"),
-  capacity: integer("capacity"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => [
   index("venues_city_idx").on(table.city)
