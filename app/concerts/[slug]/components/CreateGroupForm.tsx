@@ -51,7 +51,7 @@ export function CreateGroupForm({
         {onCancel && (
           <button
             onClick={onCancel}
-            className="text-black hover:text-gray-700"
+            className="cursor-pointer disabled:cursor-not-allowed text-black hover:text-gray-700"
             type="button"
           >
             <X className="w-5 h-5" />

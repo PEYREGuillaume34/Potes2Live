@@ -16,7 +16,7 @@
   --color-orange-fonce: #e85618;
   --color-gris-fonce: #152021;
   --color-bleulogo: #078080;
-
+  --color-bleulogo-dark: #006366;
 }
 
 @media (prefers-color-scheme: dark) {

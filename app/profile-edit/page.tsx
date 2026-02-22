@@ -273,7 +273,7 @@ export default function EditProfilePage() {
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+                  className="cursor-pointer disabled:cursor-not-allowed bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-orange-900"
                 >
                   <UserRoundPen />
                   Éditer le profil
@@ -283,14 +283,14 @@ export default function EditProfilePage() {
                   <button
                     onClick={handleSave}
                     disabled={isLoading}
-                    className="bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="cursor-pointer disabled:cursor-not-allowed bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-green-600 disabled:opacity-50"
                   >
                     <Check />
                     {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
                   </button>
                   <button
                     onClick={handleCancel}
-                    className="bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+                    className="cursor-pointer disabled:cursor-not-allowed bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-gray-600 disabled:opacity-50"
                   >
                     <X />
                     Annuler
@@ -301,7 +301,7 @@ export default function EditProfilePage() {
               {/* Déconnexion */}
               <button
                 onClick={handleSignOut}
-                className="sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2"
+                className="cursor-pointer disabled:cursor-not-allowed sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-red-600 disabled:opacity-50"
               >
                 <Power />
                 Déconnexion

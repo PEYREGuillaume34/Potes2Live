@@ -151,14 +151,14 @@ export function GroupCard({
               {/* ✅ Bouton pour voir le groupe */}
               <button
                 onClick={handleViewGroup}
-                className="flex-1 bg-orange-clair text-black px-4 py-2 rounded hover:bg-orange-fonce"
+                className="cursor-pointer disabled:cursor-not-allowed flex-1 bg-orange-clair text-black px-4 py-2 rounded hover:bg-orange-fonce"
               >
                 Voir le groupe
               </button>
               <button
                 onClick={handleLeave}
                 disabled={isLoading}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:opacity-50"
+                className="cursor-pointer disabled:cursor-not-allowed bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:opacity-50"
               >
                 {isLoading ? "Quitter..." : "Quitter"}
               </button>
@@ -167,7 +167,7 @@ export function GroupCard({
             <button
               onClick={handleJoinGroup}
               disabled={isLoading || isFull}
-              className="bg-bleulogo text-white px-4 py-2 rounded hover:bg-bleulogo disabled:opacity-50"
+              className="cursor-pointer disabled:cursor-not-allowed bg-bleulogo text-white px-4 py-2 rounded hover:bg-bleulogo-dark disabled:opacity-50"
             >
               {isLoading ? "Rejoindre..." : "Rejoindre le groupe"}
             </button>

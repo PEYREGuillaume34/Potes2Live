@@ -88,10 +88,10 @@ export function GroupsList({ eventId }: GroupsListProps) {
         </h3>
 
         {session?.user && !hasGroup && !showCreateForm && (
-          <button className="flex items-center gap-2 text-orange-clair font-medium mr-1"
+          <button className="flex items-center gap-2 text-orange-clair font-medium mr-1 cursor-pointer disabled:cursor-not-allowed"
             onClick={() => setShowCreateForm(true)}>
               En créer un
-            <Plus className="w-6 h-6 text-orange-clair border-2 border-orange-clair rounded" />
+            <Plus className=" cursor-pointer disabled:cursor-not-allowed w-6 h-6 text-orange-clair border-2 border-orange-clair rounded" />
           </button>
         )}
       </div>
