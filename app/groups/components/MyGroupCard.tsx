@@ -92,7 +92,7 @@ export function MyGroupCard({ group }: MyGroupCardProps) {
               className="flex-1 flex items-center justify-center gap-2 bg-orange-clair text-white px-4 py-3 rounded-lg hover:bg-orange-900 transition-colors font-medium"
             >
               <Speaker />
-              Voir l'événement
+              Voir l&apos;événement
             </Link>
 
             {/* {group.isOwner ? (

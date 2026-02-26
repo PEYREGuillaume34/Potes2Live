@@ -26,8 +26,12 @@ export default function RegisterPage() {
       });
       
       router.push("/concerts");
-    } catch (err: any) {
-      setError(err.message || "Erreur lors de l'inscription");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Erreur lors de l'inscription");
+      }
     } finally {
       setLoading(false);
     }

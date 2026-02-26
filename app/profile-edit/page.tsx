@@ -67,8 +67,12 @@ export default function EditProfilePage() {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-    } catch (err: any) {
-      setError(err.message || "Erreur lors de la sauvegarde");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Erreur lors de la sauvegarde");
+      }
     } finally {
       setIsLoading(false);
     }

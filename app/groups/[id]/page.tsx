@@ -13,6 +13,17 @@ type PageProps = {
   };
 };
 
+// Ajoute ce type pour les membres
+type GroupMember = {
+  id: number;
+  role: string;
+  user: {
+    id: string;
+    name: string;
+    image?: string;
+  };
+};
+
 export default async function ChatPage({ params }: PageProps) {
   const { id } = await params;
   const groupId = parseInt(id);
@@ -85,7 +96,7 @@ export default async function ChatPage({ params }: PageProps) {
             </h3>
 
             <div className="flex flex-wrap gap-2">
-              {members.map((member: any) => (
+              {members.map((member: GroupMember) => (
                 <div
                   key={member.id}
                   className={`flex items-center gap-2 px-1 py-1 rounded-full text-sm
