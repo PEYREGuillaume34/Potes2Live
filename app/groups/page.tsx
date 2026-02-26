@@ -48,11 +48,16 @@ export default function MyGroupsPage() {
   };
 
   useEffect(() => {
-    if (!isPending && session?.user) {
-      fetchMyGroups();
-    } else if (!isPending && !session) {
-      setIsLoading(false);
-    }
+    const fetchData = async () => {
+      if (!isPending && session?.user) {
+        await fetchMyGroups();
+      } else if (!isPending && !session) {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+
   }, [session, isPending]);
 
   const handleGroupUpdate = () => {
@@ -124,7 +129,7 @@ export default function MyGroupsPage() {
           </h2>
           <p className="text-gray-400 mb-6 max-w-md mx-auto">
             Explorez les événements et rejoignez ou créez un groupe pour
-            partager votre passion avec d'autres fans !
+            partager votre passion avec d&apos;autres fans !
           </p>
           <Link
             href="/concerts"

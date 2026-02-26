@@ -44,7 +44,7 @@ export default function HomePage() {
               className="py-3 px-6 text-black font-bold hover:bg-gray-100 transition-colors"
               href="/register"
             >
-              s'inscrire
+              s&apos;inscrire
             </Link>
           </div>
         )}

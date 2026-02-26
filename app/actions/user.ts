@@ -40,7 +40,7 @@ export async function updateUserProfile(formData: FormData) {
         },
         headers: await headers(),
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Better-Auth retourne une erreur si le mot de passe actuel est incorrect
       console.error("Erreur changement mot de passe:", error);
       throw new Error("Mot de passe actuel incorrect");

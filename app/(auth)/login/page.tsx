@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "@/app/lib/auth-client";
 import Link from "next/link";
 
+
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -24,7 +26,7 @@ export default function LoginPage() {
       });
       
       router.push("/concerts");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError("Email ou mot de passe incorrect");
     } finally {
       setLoading(false);
@@ -88,7 +90,7 @@ export default function LoginPage() {
         <div className="mt-6 text-center text-sm text-white">
           Pas encore de compte ?{" "}
           <Link href="/register" className="text-orange-fonce hover:text-orange-700 font-semibold">
-            S'inscrire
+            S&apos;inscrire
           </Link>
         </div>
       </div>
