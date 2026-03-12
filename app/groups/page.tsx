@@ -101,7 +101,7 @@ export default function MyGroupsPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-          <Users className="w-8 h-8 text-orange-clair" />
+          <Users className="w-8 h-8 text-orange-clair"/>
           Mes groupes
         </h1>
         <p className="text-gray-400">
