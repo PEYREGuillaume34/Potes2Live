@@ -44,7 +44,7 @@ export function CreateGroupForm({
   return (
     <div className="bg-white rounded-lg shadow-md p-6 border-2 border-orange-clair">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-x1 font-semibold">
+        <h3 className="text-x1 font-semibold text-black">
           <Users className="w-5 h-5 text-orange-fonce" />
           Créer un nouveau groupe
         </h3>

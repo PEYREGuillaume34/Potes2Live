@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronLeft, Power, UserRoundPen, X } from "lucide-react";
+import { Check, ChevronLeft, CircleUserRound, Power, UserRoundPen, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
