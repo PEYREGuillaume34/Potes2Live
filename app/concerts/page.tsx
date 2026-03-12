@@ -39,8 +39,7 @@ export default async function ConcertsPage({
           Concerts
         </h1>
       <p className="text-gray-400 mb-8">
-        Découvrez les prochains concerts et rejoignez des groupes de fans pour y
-        assister ensemble!
+        Découvrez les prochains concerts et rejoignez des groupes de fans !
       </p>
       <ConcertsClient concerts={concerts} initialCity={params.city} initialPostalCode={params.postalCode} />
     </div>
