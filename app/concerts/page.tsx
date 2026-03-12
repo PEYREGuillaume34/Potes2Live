@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getUpcomingConcerts, getConcertsByCity } from "../actions/concerts.action";
 import { ConcertsClient } from "./ConcertsClient";
+import { Speaker } from "lucide-react";
 
 export default async function ConcertsPage({
   searchParams,
@@ -33,7 +34,11 @@ export default async function ConcertsPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <p className="text-white text-center mb-8">
+      <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+          <Speaker className="w-8 h-8 text-orange-clair" />
+          Concerts
+        </h1>
+      <p className="text-gray-400 mb-8">
         Découvrez les prochains concerts et rejoignez des groupes de fans pour y
         assister ensemble!
       </p>
