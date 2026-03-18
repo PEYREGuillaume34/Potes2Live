@@ -26,7 +26,7 @@ export default function LoginPage() {
       });
       
       router.push("/concerts");
-    } catch (err: unknown) {
+    } catch {
       setError("Email ou mot de passe incorrect");
     } finally {
       setLoading(false);

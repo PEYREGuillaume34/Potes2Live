@@ -31,7 +31,7 @@ export function GroupCard({
     const result = await joinGroup(group.id);
 
     if (result.success) {
-      onUpdate && onUpdate();
+      if (onUpdate) onUpdate();
       router.push(`/groups/${group.id}`);
     } else {
       setError(result.error || "Erreur lors de la tentative de rejoindre.");
@@ -52,7 +52,7 @@ export function GroupCard({
     const result = await leaveGroup(group.id);
 
     if (result.success) {
-      onUpdate && onUpdate();
+      if (onUpdate) onUpdate();
     } else {
       setError(result.error || "Erreur lors de la tentative de quitter.");
     }
@@ -73,7 +73,7 @@ export function GroupCard({
     const result = await deleteGroup(group.id);
 
     if (result.success) {
-      onUpdate && onUpdate();
+      if (onUpdate) onUpdate();
     } else {
       setError(result.error || "Erreur lors de la tentative de suppression.");
     }

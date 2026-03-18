@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getUpcomingConcerts, getConcertsByCity } from "../actions/concerts.action";
 import { ConcertsClient } from "./ConcertsClient";
 import { Speaker } from "lucide-react";

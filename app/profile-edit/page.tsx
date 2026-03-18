@@ -1,10 +1,11 @@
 "use client";
 
-import { Check, ChevronLeft, CircleUserRound, Power, UserRoundPen, X } from "lucide-react";
+import { Check, ChevronLeft, Power, UserRoundPen, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
 import { updateUserProfile } from "../actions/user";
+import Image from "next/image";
 
 interface ExtendedUser {
   id: string;
@@ -138,10 +139,12 @@ export default function EditProfilePage() {
           <div className="flex flex-col items-center mb-8">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center mb-3">
               {user?.avatar_url ? (
-                <img 
+                <Image 
                   src={user.avatar_url} 
                   alt="Photo de profil" 
                   className="w-full h-full rounded-full object-cover"
+                  width={96}
+                  height={96}
                 />
               ) : (
                 <span className="text-4xl text-white">

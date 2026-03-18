@@ -4,7 +4,7 @@ import { getGroupsByEvent, checkUserGroupForEvent, getUserGroupStatus } from "@/
 import { GroupCard } from "./GroupCard";
 import { useSession } from "@/app/lib/auth-client";
 import { Loader2, Plus, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CreateGroupForm } from "./CreateGroupForm";
 import type { GroupsListProps, GroupWithMembers, UserGroupStatus } from "@/app/type";
 
@@ -17,30 +17,25 @@ export function GroupsList({ eventId }: GroupsListProps) {
   const [hasGroup, setHasGroup] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchGroups = async () => {
+  const fetchGroups = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // Récupérer les groupes
       const groupsResult = await getGroupsByEvent(eventId);
 
       if (!groupsResult.success) {
-        setError(
-          groupsResult.error || "Erreur lors de la récupération des groupes.",
-        );
+        setError(groupsResult.error || "Erreur lors de la récupération des groupes.");
         setIsLoading(false);
         return;
       }
 
       setGroups(groupsResult.data || []);
 
-      // Vérfier si l'utilisateur peut créer ou rejoindre un groupe
       if (session?.user) {
         const checkResult = await checkUserGroupForEvent(eventId);
         setHasGroup(checkResult.hasGroup ?? false);
 
-        // Récupérer le statut de l'utilisateur pour chaque groupe
         const statusMap = new Map<number, UserGroupStatus>();
         for (const group of groupsResult.data || []) {
           const status = await getUserGroupStatus(group.id);
@@ -54,16 +49,16 @@ export function GroupsList({ eventId }: GroupsListProps) {
         }
         setGroupsStatus(statusMap);
       }
-    } catch (err) {
+    } catch {
       setError("Une erreur inattendue est survenue.");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [eventId, session?.user]);
 
   useEffect(() => {
     fetchGroups();
-  }, [eventId, session]);
+  }, [fetchGroups]);
 
   const handleGroupUpdate = () => {
     setShowCreateForm(false);

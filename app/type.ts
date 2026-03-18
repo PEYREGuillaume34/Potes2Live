@@ -203,6 +203,8 @@ export type CreateGroupFormProps = {
   eventId: number;
   onSuccess?: () => void;
   onCancel?: () => void;
+  onUpdate?: () => void;
+  onClose?: () => void;
 };
 
 export type MyGroupCardProps = {

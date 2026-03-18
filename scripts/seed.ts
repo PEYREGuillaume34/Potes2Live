@@ -1,6 +1,6 @@
 import "dotenv/config"; 
 import { db } from "../app/lib/db/drizzle";
-import { artists, venues, events, user } from "../app/lib/db/schema";
+import { artists, venues, events } from "../app/lib/db/schema";
 
 async function seed() {
   console.log("🌱 Seeding database...");
@@ -234,10 +234,10 @@ async function seed() {
     // 2. Créer des petites salles à Paris et région parisienne
     console.log("📝 Creating venues...");
     const [
-      pointEphemere, maroquinerie, flecheOr, popup, petitBain,
-      supersonic, glazart, gibus, silencio, batofar,
-      djoon, concreteVenue, rex, nouveauCasino, trabendo,
-      bercyVillage, mecanique, laJava, laBouleNoire, international,
+      pointEphemere, maroquinerie, flecheOr, popup, petitBain, 
+      glazart, gibus, silencio, batofar,
+      concreteVenue, rex, nouveauCasino, trabendo,
+      mecanique, laJava, laBouleNoire, international,
       // Nouvelles salles
       elysee, cigale, trianon, olympia, zenith,
       gaite, divan, bellevilloise, fleche, badaboum

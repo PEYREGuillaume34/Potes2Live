@@ -6,7 +6,8 @@ import { artists, events, groups, venues } from "../lib/db/schema";
 import { eq, desc, and } from "drizzle-orm";
 import type { ActionResponse, Concert, ConcertListItem } from "../type";
 
-export async function getUpcomingConcerts(): Promise<ActionResponse<Concert[]>> {
+export async function getUpcomingConcerts():
+Promise<ActionResponse<Concert[]>> {
     try {
         const concerts = await db
         .select({
@@ -48,7 +49,8 @@ export async function getUpcomingConcerts(): Promise<ActionResponse<Concert[]>> 
         return { success: true, data: concerts };
     } catch (error) {
         console.error("Erreur récupération concerts:", error);
-        return { success: false, error: "Erreur lors de la récupération des concerts" };
+        return { success: false, 
+            error: "Erreur lors de la récupération des concerts" };
     }
 }
 
@@ -106,7 +108,8 @@ export async function getConcertsByCity(
     }
 }
 
-export async function getConcertBySlug(slug: string): Promise<ActionResponse<Concert>> {
+export async function getConcertBySlug(slug: string):
+Promise<ActionResponse<Concert>> {
     try {
         const concert = await db
         .select({

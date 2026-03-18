@@ -4,6 +4,7 @@ import { GroupsList } from "./components/GroupsList";
 import { CalendarDays, ChevronLeft, Clock, MapPin, MicVocal } from "lucide-react";
 import Link from "next/dist/client/link";
 import type { PageProps } from "@/app/type";
+import Image from "next/image";
 
 export default async function ConcertDetailPage({ params }: PageProps) {
   const { slug } = await params;
@@ -42,10 +43,12 @@ export default async function ConcertDetailPage({ params }: PageProps) {
       {/* Contenu avec padding pour header mobile */}
       <div className="pt-20 md:pt-0">
         {concert.artist.imageUrl && (
-          <img
+          <Image
             src={concert.artist.imageUrl}
             alt={concert.artist.name}
             className="mb-6 w-full max-w-md rounded-lg"
+            width={640}
+            height={360}
           />
         )}
         <div>

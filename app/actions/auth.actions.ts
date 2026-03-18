@@ -14,7 +14,7 @@ export async function getCurrentUser() {
     }
 
     return { success: true, data: session.user };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Erreur serveur" };
   }
 }

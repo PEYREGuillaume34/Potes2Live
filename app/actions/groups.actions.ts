@@ -2,7 +2,7 @@
 
 import { db } from "../lib/db/drizzle";
 import { groups, groupMembers, user, events } from "@/app/lib/db/schema";
-import { eq, and, count, sql, is } from "drizzle-orm";
+import { eq, and, count, sql } from "drizzle-orm";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
 

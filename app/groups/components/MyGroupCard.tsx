@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Users, Calendar, MapPin, Speaker, Crown } from "lucide-react";
 import type { MyGroupCardProps } from "@/app/type";
+import Image from "next/image";
 
 export function MyGroupCard({ group }: MyGroupCardProps) {
 
@@ -19,10 +20,12 @@ export function MyGroupCard({ group }: MyGroupCardProps) {
       {/* Event Image */}
       <div className="relative h-40 bg-gray-200">
         {group.event.imageUrl ? (
-          <img
+          <Image
             src={group.event.imageUrl}
             alt={group.event.title}
             className="w-full h-full object-cover"
+            width={640}
+            height={360}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400">

@@ -6,6 +6,7 @@ import { getGroupMessages } from "@/app/actions/messages.actions";
 import ChatBox from "./components/ChatBox";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
 
 type PageProps = {
   params: {
@@ -105,10 +106,12 @@ export default async function ChatPage({ params }: PageProps) {
                       : "border border-gray-300 text-gray-700 bg-black"}`}
                 >
                   {member.user.image ? (
-                    <img
+                    <Image
                       src={member.user.image}
                       alt={member.user.name}
                       className="w-6 h-6 rounded-full"
+                      width={24}
+                      height={24}
                     />
                   ) : (
                     <div

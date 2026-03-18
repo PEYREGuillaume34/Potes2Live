@@ -1,6 +1,7 @@
 "use client";
 
 import type { MessageItemProps } from "@/app/type";
+import Image from "next/image";
 
 export default function MessageItem({
   message,
@@ -13,10 +14,12 @@ export default function MessageItem({
       >
         <div className="flex items-center gap-2 mb-1">
           {message.user.avatar_url ? (
-            <img
+            <Image
               src={message.user.avatar_url}
               alt={message.user.name}
               className="w-6 h-6 rounded-full"
+              width={24}
+              height={24}
             />
           ) : (
             <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-semibold text-gray-700">

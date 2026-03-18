@@ -32,11 +32,11 @@ vi.mock("@/app/actions/concerts.action", () => ({
       },
     ],
   })),
-  getConcertsByCity: vi.fn(async (city: string) => ({
+  getConcertsByCity: vi.fn(async () => ({
     success: true,
     data: [],
   })),
-  getConcertBySlug: vi.fn(async (slug: string) => ({
+  getConcertBySlug: vi.fn(async () => ({
     success: true,
     data: null,
   })),

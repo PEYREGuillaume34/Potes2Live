@@ -1,6 +1,7 @@
 "use client";
 
 import type { MessageListProps } from "@/app/type";
+import Image from "next/image";
 
 export default function MessageList({
   messages,
@@ -26,10 +27,12 @@ export default function MessageList({
               >
                 <div className="flex items-center gap-2 mb-1">
                   {message.user.avatar_url && (
-                    <img
+                    <Image
                       src={message.user.avatar_url}
                       alt={message.user.name}
                       className="w-6 h-6 rounded-full"
+                      width={24}
+                      height={24}
                     />
                   )}
                   <span

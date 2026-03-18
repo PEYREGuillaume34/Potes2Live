@@ -6,8 +6,7 @@ import {
   timestamp, 
   boolean, 
   integer, 
-  index, 
-  date, 
+  index,  
   uniqueIndex,
   doublePrecision,
   varchar

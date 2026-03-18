@@ -1,5 +1,6 @@
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import type { ConcertCardProps } from "@/app/type";
 
 export function ConcertCard({
@@ -31,10 +32,12 @@ export function ConcertCard({
         <div className="h-48 w-full bg-gray-200 relative">
           {/* Image */}
           {imageUrl ? (
-            <img
+            <Image
               src={imageUrl}
               alt={title}
               className="object-cover w-full h-full"
+              width={640}
+              height={360}
             />
           ) : (
             <div className="flex items-center justify-center h-full text-white bg-gray-400">
@@ -57,10 +60,12 @@ export function ConcertCard({
 
           <div className="flex items-center gap-3">
             {artistImageUrl ? (
-              <img
+              <Image
                 src={artistImageUrl}
                 alt={artistName}
                 className="w-8 h-8 rounded-full mb-2"
+                width={32}
+                height={32}
               />
             ) : (
               <div className="flex items-center justify-center h-8 w-8 text-white bg-gray-400 rounded-full mb-2">

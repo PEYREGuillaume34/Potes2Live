@@ -9,6 +9,8 @@ export function CreateGroupForm({
   eventId,
   onSuccess,
   onCancel,
+  onUpdate,
+  onClose,
 }: CreateGroupFormProps) {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -33,7 +35,11 @@ export function CreateGroupForm({
       setName("");
       setDescription("");
       setMaxMembers(10);
-      onSuccess && onSuccess();
+
+      if (onSuccess) onSuccess();
+      if (onUpdate) onUpdate();
+      if (onClose) onClose();
+
       router.push(`/groups/${result.data.id}`);
     } else {
       setError(result.error || "Erreur lors de la création du groupe.");

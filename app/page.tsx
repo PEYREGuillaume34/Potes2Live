@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "./lib/auth-client";
 
 export default function HomePage() {
@@ -8,10 +9,13 @@ export default function HomePage() {
 
   return (
     <div>
-      <img
+      <Image
         src="/logo/logoPDL.svg"
         alt="PotesdeLiveLogo"
-        className="mx-auto my-1 max-w-2xs"
+        width={240}
+        height={150}
+        className="mx-auto mt-20 mb-2"
+        priority
       />
       <p className="text-lg text-center text-white mb-4">
         Trouvez des concerts et formez des groupes pour y aller ensemble.
