@@ -76,7 +76,7 @@ export default function MyGroupsPage() {
   // Not authenticated
   if (!session?.user) {
     return (
-      <div className="mt-8 flex items-center justify-center px-4">
+      <div className="mt-8 flex items-center justify-center px-4 md:mt-16">
         <div className="text-center max-w-md">
           <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">
@@ -97,7 +97,7 @@ export default function MyGroupsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 pb-24">
+    <div className="max-w-7xl mx-auto px-4 py-8 pb-24 md:py-20">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
@@ -112,7 +112,7 @@ export default function MyGroupsPage() {
       {/* Error Message */}
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
           <div>
             <h3 className="font-semibold text-red-800 mb-1">Erreur</h3>
             <p className="text-sm text-red-600">{error}</p>

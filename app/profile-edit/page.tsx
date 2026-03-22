@@ -4,8 +4,15 @@ import { Check, ChevronLeft, Power, UserRoundPen, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "../lib/auth-client";
-import { updateUserProfile } from "../actions/user";
+import {
+  addFavoriteArtist,
+  getArtistsCatalog,
+  getMyFavoriteArtists,
+  removeFavoriteArtist,
+  updateUserProfile,
+} from "../actions/user";
 import Image from "next/image";
+import type { FavoriteArtistItem } from "../type";
 
 interface ExtendedUser {
   id: string;
@@ -33,6 +40,11 @@ export default function EditProfilePage() {
   const [bio, setBio] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [artistsCatalog, setArtistsCatalog] = useState<FavoriteArtistItem[]>([]);
+  const [favoriteArtistIds, setFavoriteArtistIds] = useState<Set<number>>(new Set());
+  const [favoriteError, setFavoriteError] = useState<string | null>(null);
+  const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
+  const [updatingFavoriteId, setUpdatingFavoriteId] = useState<number | null>(null);
 
   // Synchroniser avec la session
   useEffect(() => {
@@ -44,6 +56,84 @@ export default function EditProfilePage() {
       setNewPassword("");
     }
   }, [user]);
+
+  useEffect(() => {
+    const loadFavoriteData = async () => {
+      if (!user) {
+        setArtistsCatalog([]);
+        setFavoriteArtistIds(new Set());
+        return;
+      }
+
+      setIsFavoritesLoading(true);
+      setFavoriteError(null);
+
+      try {
+        const [catalogResult, favoritesResult] = await Promise.all([
+          getArtistsCatalog(),
+          getMyFavoriteArtists(),
+        ]);
+
+        if (!catalogResult.success) {
+          throw new Error("Erreur chargement catalogue artistes");
+        }
+
+        if (!favoritesResult.success) {
+          throw new Error("Erreur chargement favoris");
+        }
+
+        const favorites = favoritesResult.data || [];
+        setArtistsCatalog((catalogResult.data || []) as FavoriteArtistItem[]);
+        setFavoriteArtistIds(new Set(favorites.map((artist) => artist.id)));
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setFavoriteError(err.message);
+        } else {
+          setFavoriteError("Impossible de charger les artistes favoris");
+        }
+      } finally {
+        setIsFavoritesLoading(false);
+      }
+    };
+
+    loadFavoriteData();
+  }, [user]);
+
+  const handleToggleFavorite = async (artistId: number) => {
+    if (!user) return;
+
+    setUpdatingFavoriteId(artistId);
+    setFavoriteError(null);
+
+    try {
+      const isFavorite = favoriteArtistIds.has(artistId);
+      const result = isFavorite
+        ? await removeFavoriteArtist(artistId)
+        : await addFavoriteArtist(artistId);
+
+      if (!result.success) {
+        throw new Error(result.error || "Impossible de mettre à jour les favoris");
+      }
+
+      setFavoriteArtistIds((prev) => {
+        const next = new Set(prev);
+        if (isFavorite) {
+          next.delete(artistId);
+        } else {
+          next.add(artistId);
+        }
+        return next;
+      });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setFavoriteError(err.message);
+      } else {
+        setFavoriteError("Erreur lors de la mise à jour des favoris");
+      }
+    } finally {
+      setUpdatingFavoriteId(null);
+    }
+  };
 
   // Fonction de sauvegarde
   const handleSave = async () => {
@@ -114,7 +204,7 @@ export default function EditProfilePage() {
       </header>
 
       {/* Contenu principal */}
-      <main className="flex-grow pt-20 px-4 pb-20">
+      <main className="grow pt-20 px-4 pb-20">
         <div className="max-w-2xl mx-auto">
           {/* Messages d'erreur et succès */}
           {error && (
@@ -272,6 +362,73 @@ export default function EditProfilePage() {
                 />
               </div>
             </div>
+          )}
+
+          {user && (
+            <section className="mt-8">
+              <h2 className="text-xl font-semibold text-white mb-3">Tes artistes favoris</h2>
+
+              {favoriteError && (
+                <div className="bg-red-500/10 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-4">
+                  {favoriteError}
+                </div>
+              )}
+
+              {isFavoritesLoading ? (
+                <p className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
+                  Chargement des artistes...
+                </p>
+              ) : artistsCatalog.length === 0 ? (
+                <p className="bg-gray-800 border border-gray-700 text-gray-400 rounded-lg p-4">
+                  Aucun artiste disponible pour le moment.
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {artistsCatalog.map((artist) => {
+                    const isFavorite = favoriteArtistIds.has(artist.id);
+                    const isUpdating = updatingFavoriteId === artist.id;
+
+                    return (
+                      <article
+                        key={artist.id}
+                        className="bg-gray-800 border border-gray-700 rounded-lg p-3 flex items-center gap-3"
+                      >
+                        <div className="relative w-14 h-14 rounded-md overflow-hidden bg-gray-700 shrink-0">
+                          {artist.imageUrl ? (
+                            <Image
+                              src={artist.imageUrl}
+                              alt={artist.name}
+                              fill
+                              sizes="56px"
+                              className="object-cover"
+                            />
+                          ) : null}
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white font-medium truncate">{artist.name}</p>
+                          <p className="text-sm text-gray-400 truncate">
+                            {artist.genre || "Genre non précisé"}
+                          </p>
+                        </div>
+
+                        <button
+                          onClick={() => handleToggleFavorite(artist.id)}
+                          disabled={isUpdating}
+                          className={`px-3 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 ${
+                            isFavorite
+                              ? "bg-red-500/20 text-red-300 hover:bg-red-500/30"
+                              : "bg-orange-fonce text-white hover:bg-orange-900"
+                          }`}
+                        >
+                          {isUpdating ? "..." : isFavorite ? "Retirer" : "Ajouter"}
+                        </button>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
           )}
 
           {/* Actions - Affichées uniquement si l'utilisateur est connecté */}

@@ -262,3 +262,29 @@ export type PageProps = {
     slug: string;
   };
 };
+
+
+// ========================================
+// TYPES HISTORIQUE CONCERTS
+// ========================================
+
+export type PastConcertProfileItem = {
+  id: number;
+  slug: string;
+  title: string;
+  imageUrl: string | null;
+  eventDate: Date;
+  eventTime: string | null;
+  groupId: number;
+  groupName: string;
+};
+
+export type FavoriteArtistItem = {
+  id: number;
+  name: string;
+  genre: string | null;
+  imageUrl: string | null;
+  spotifyUrl?: string | null;
+  instagramUrl?: string | null;
+  bio?: string | null;
+};

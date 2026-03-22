@@ -4,17 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "./lib/auth-client";
 
+
 export default function HomePage() {
   const { data: session, isPending } = useSession();
 
   return (
-    <div>
+    <div className="h-[calc(100dvh-4rem)] flex flex-col items-center justify-center px-4">
       <Image
         src="/logo/logoPDL.svg"
         alt="PotesdeLiveLogo"
-        width={240}
-        height={150}
-        className="mx-auto mt-20 mb-2"
+        width={260}
+        height={260}
+        className="mx-auto mt-10 md:mt-0 mb-2"
         priority
       />
       <p className="text-lg text-center text-white mb-4">

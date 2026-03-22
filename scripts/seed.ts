@@ -1060,7 +1060,7 @@ async function seed() {
         imageUrl: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800", // Indie Pop concert
         artistId: requin.id,
         venueId: divan.id,
-        eventDate: new Date("2026-04-16"),
+        eventDate: new Date("2026-03-16"),
         eventTime: "20:30",
         price: 19.0,
         ticketUrl: "https://www.dice.fm",
@@ -1086,7 +1086,7 @@ async function seed() {
         imageUrl: "https://images.unsplash.com/photo-1504898770365-14faca6a7320?w=800", // Punk concert
         artistId: foudre.id,
         venueId: badaboum.id,
-        eventDate: new Date("2026-04-24"),
+        eventDate: new Date("2026-02-24"),
         eventTime: "22:00",
         price: 16.0,
         ticketUrl: "https://www.shotgun.live",

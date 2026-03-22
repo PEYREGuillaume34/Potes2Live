@@ -1,3 +1,4 @@
+
 import { relations, sql } from "drizzle-orm";
 import { 
   pgTable, 
@@ -230,6 +231,24 @@ export const groupMessages = pgTable("group_messages", {
   index("messages_created_idx").on(table.createdAt),
 ]);
 
+// ========================================
+// TABLES ARTISTES FAVORIS
+// ========================================
+export const favoriteArtists = pgTable("favorite_artists", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id")
+    .references(() => user.id, { onDelete: "cascade" })
+    .notNull(),
+  artistId: integer("artist_id")
+    .references(() => artists.id, { onDelete: "cascade" })
+    .notNull(),
+}, (table) => [
+  uniqueIndex("favorite_artists_user_artist_unique").on(table.userId, table.artistId),
+  index("favorite_artists_user_idx").on(table.userId),
+  index("favorite_artists_artist_idx").on(table.artistId),
+]
+
+);
 
 
 // ========================================
@@ -241,6 +260,7 @@ export const userRelations = relations(user, ({ many }) => ({
   groups: many(groups),
   groupMemberships: many(groupMembers),
   messages: many(groupMessages),
+  favoriteArtists: many(favoriteArtists),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -259,6 +279,7 @@ export const accountRelations = relations(account, ({ one }) => ({
 
 export const artistRelations = relations(artists, ({ many }) => ({
   events: many(events),
+  favoriteArtists: many(favoriteArtists),
 }));
 
 export const venueRelations = relations(venues, ({ many }) => ({

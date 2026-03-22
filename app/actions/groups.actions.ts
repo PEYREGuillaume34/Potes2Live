@@ -2,7 +2,7 @@
 
 import { db } from "../lib/db/drizzle";
 import { groups, groupMembers, user, events } from "@/app/lib/db/schema";
-import { eq, and, count, sql } from "drizzle-orm";
+import { eq, and, count, sql, lt, desc} from "drizzle-orm";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
 
@@ -444,6 +444,53 @@ export async function getMyGroups() {
     return {
       success: false,
       error: "Erreur lors de la récupération de vos groupes",
+    };
+  }
+}
+
+// ========================================
+// HISTORIQUE DES EVENTS PASSÉS AUXQUELS L'UTILISATEUR A PARTICIPÉ
+// ========================================
+export async function getMyPastConcerts() {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      return { success: false, error: "Non authentifié" };
+    }
+
+    const myPastConcerts = await db
+      .select({
+        id: events.id,
+        slug: events.slug,
+        title: events.title,
+        imageUrl: events.imageUrl,
+        eventDate: events.eventDate,
+        eventTime: events.eventTime,
+        groupId: groups.id,
+        groupName: groups.name,
+      })
+      .from(groupMembers)
+      .innerJoin(groups, eq(groupMembers.groupId, groups.id))
+      .innerJoin(events, eq(groups.eventId, events.id))
+      .where(
+        and(
+          eq(groupMembers.userId, session.user.id),
+          eq(groupMembers.status, "active"),
+          eq(groups.isActive, true),
+          lt(events.eventDate, new Date())
+        )
+      )
+      .orderBy(desc(events.eventDate));
+
+    return { success: true, data: myPastConcerts };
+  } catch (error) {
+    console.error("Erreur récupération mes concerts passés:", error);
+    return {
+      success: false,
+      error: "Erreur lors de la récupération de vos concerts passés",
     };
   }
 }

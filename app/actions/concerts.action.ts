@@ -3,7 +3,7 @@
 import { sql } from "drizzle-orm";
 import { db } from "../lib/db/drizzle";
 import { artists, events, groups, venues } from "../lib/db/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, gt } from "drizzle-orm";
 import type { ActionResponse, Concert, ConcertListItem } from "../type";
 
 export async function getUpcomingConcerts():
@@ -43,7 +43,7 @@ Promise<ActionResponse<Concert[]>> {
         .from(events)
         .innerJoin(artists, eq(events.artistId, artists.id))
         .innerJoin(venues, eq(events.venueId, venues.id))
-        .where(eq(events.status, "upcoming"))
+        .where(and(eq(events.status, "upcoming"), gt(events.eventDate, new Date())))
         .orderBy(desc(events.eventDate));
 
         return { success: true, data: concerts };
@@ -59,7 +59,7 @@ export async function getConcertsByCity(
     postalCode?: string
 ): Promise<ActionResponse<ConcertListItem[]>> {
     try {
-        const conditions = [eq(events.status, "upcoming")];
+        const conditions = [eq(events.status, "upcoming"), gt(events.eventDate, new Date())];
 
         if (postalCode) {
             conditions.push(eq(venues.postalCode, postalCode));

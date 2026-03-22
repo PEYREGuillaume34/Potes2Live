@@ -16,7 +16,7 @@ export default async function ConcertsPage({
 
   if (!result.success) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-20">
         <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg">
           <h3 className="font-semibold mb-2">Erreur</h3>
           <p>{result.error}</p>
@@ -32,7 +32,7 @@ export default async function ConcertsPage({
   }));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-8 md:py-20">
       <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
           <Speaker className="w-8 h-8 text-orange-clair" />
           Concerts
