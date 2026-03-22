@@ -55,12 +55,11 @@ export default async function ProfilePage() {
 
 
             {/* Contenu principal avec marge pour le header */}
-            <main className="grow pt-20 px-4 md:pt-10 md:px-8">
+            <main className="grow pt-20 px-4 md:pt-8 md:px-8">
                 <div className="text-white">
-                    <h2 className="text-xl font-semibold mb-2">Bienvenue sur votre profil !</h2>
                     
 
-                    <h2 className="text-xl font-semibold mb-2 mt-4">Historique de concerts</h2>
+                    <h2 className="text-xl font-semibold mb-2 mt-2">Historique de concerts</h2>
 
                                         {!pastConcertsResult.success ? (
                                             <p className="bg-red-500/10 border border-red-500/30 text-red-300 rounded-lg p-4 w-full">

@@ -2,7 +2,7 @@
 
 import { db } from "../lib/db/drizzle";
 import { groups, groupMembers, user, events } from "@/app/lib/db/schema";
-import { eq, and, count, sql, lt, desc} from "drizzle-orm";
+import { eq, and, count, sql, lt, desc, gt } from "drizzle-orm";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
 
@@ -433,7 +433,8 @@ export async function getMyGroups() {
         and(
           eq(groupMembers.userId, session.user.id),
           eq(groupMembers.status, "active"),
-          eq(groups.isActive, true)
+          eq(groups.isActive, true),
+          gt(events.eventDate, new Date())
         )
       )
       .orderBy(events.eventDate);
