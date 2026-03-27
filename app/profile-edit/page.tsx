@@ -364,6 +364,48 @@ export default function EditProfilePage() {
             </div>
           )}
 
+          {/* Actions - Affichées uniquement si l'utilisateur est connecté */}
+          {user && (
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-6">
+              {!isEditing ? (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="cursor-pointer disabled:cursor-not-allowed bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-orange-900"
+                >
+                  <UserRoundPen />
+                  Éditer le profil
+                </button>
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleSave}
+                    disabled={isLoading}
+                    className="cursor-pointer disabled:cursor-not-allowed bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-green-600 disabled:opacity-50"
+                  >
+                    <Check />
+                    {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
+                  </button>
+                  <button
+                    onClick={handleCancel}
+                    className="cursor-pointer disabled:cursor-not-allowed bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-gray-600 disabled:opacity-50"
+                  >
+                    <X />
+                    Annuler
+                  </button>
+                </div>
+              )}
+
+              {/* Déconnexion */}
+              <button
+                onClick={handleSignOut}
+                className="cursor-pointer disabled:cursor-not-allowed sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-red-600 disabled:opacity-50"
+              >
+                <Power />
+                Déconnexion
+              </button>
+            </div>
+          )}
+
           {user && (
             <section className="mt-8">
               <h2 className="text-xl font-semibold text-white mb-3">Tes artistes favoris</h2>
@@ -431,47 +473,7 @@ export default function EditProfilePage() {
             </section>
           )}
 
-          {/* Actions - Affichées uniquement si l'utilisateur est connecté */}
-          {user && (
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-6">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="cursor-pointer disabled:cursor-not-allowed bg-orange-fonce text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-orange-900"
-                >
-                  <UserRoundPen />
-                  Éditer le profil
-                </button>
-              ) : (
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={handleSave}
-                    disabled={isLoading}
-                    className="cursor-pointer disabled:cursor-not-allowed bg-green-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-green-600 disabled:opacity-50"
-                  >
-                    <Check />
-                    {isLoading ? "Sauvegarde..." : "Sauvegarder les modifications"}
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    className="cursor-pointer disabled:cursor-not-allowed bg-gray-700 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-gray-600 disabled:opacity-50"
-                  >
-                    <X />
-                    Annuler
-                  </button>
-                </div>
-              )}
-
-              {/* Déconnexion */}
-              <button
-                onClick={handleSignOut}
-                className="cursor-pointer disabled:cursor-not-allowed sm:mt-0 bg-red-500 text-white rounded-lg px-4 py-2 transition-all flex items-center justify-center gap-2 hover:bg-red-600 disabled:opacity-50"
-              >
-                <Power />
-                Déconnexion
-              </button>
-            </div>
-          )}
+          
         </div>
       </main>
     </div>

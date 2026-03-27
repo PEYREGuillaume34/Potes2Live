@@ -122,7 +122,7 @@ export function CreateGroupForm({
               value={maxMembers}
               onChange={(e) => setMaxMembers(Number(e.target.value))}
               min={2}
-              max={50}
+              max={20}
               className="flex-1"
             />
 
@@ -131,7 +131,7 @@ export function CreateGroupForm({
             </span>
           </div>
           <p className="text-xs text-gray-500 mt-1">
-            Choisissez entre 2 et 50 membres.
+            Choisissez entre 2 et 20 membres.
           </p>
         </div>
 

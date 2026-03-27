@@ -129,10 +129,10 @@ export async function createGroup(
       };
     }
 
-    if (maxMembers < 2 || maxMembers > 50) {
+    if (maxMembers < 2 || maxMembers > 20) {
       return {
         success: false,
-        error: "Le nombre de membres doit être entre 2 et 50",
+        error: "Le nombre de membres doit être entre 2 et 20",
       };
     }
 

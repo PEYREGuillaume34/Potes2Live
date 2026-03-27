@@ -79,64 +79,69 @@ export default async function ChatPage({ params }: PageProps) {
 
       {/* Contenu principal avec padding pour le header fixe */}
       <div className="container mx-auto px-4 pt-14 pb-8">
-        <div className="mb-6 rounded-lg shadow p-6">
-          {/* Description */}
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold text-orange-clair mb-2">
-              Description
-            </h2>
-            {group.description && (
-              <p className="text-white mt-2">{group.description}</p>
-            )}
-          </div>
+        <div className="flex flex-col gap-6 max-w-4xl mx-auto px-4">
+          {/* Description + Membres */}
+          <div>
+            {/* Description */}
+            <div className="mb-6 mt-10">
+              <h2 className="text-lg font-semibold text-orange-clair mb-2">
+                Description
+              </h2>
+              {group.description && (
+                <p className="text-white mt-2">{group.description}</p>
+              )}
+            </div>
 
-          {/* Liste des membres */}
-          <div className="border-t pt-4 text-white mb-6">
-            <h3 className="text-sm font-semibold text-gray-200 mb-2">
-              Membres ({members.length}/{group.maxMembers})
-            </h3>
+            {/* Liste des membres */}
+            <div className="border-t pt-4 text-white mb-6">
+              <h3 className="text-sm font-semibold text-gray-200 mb-2">
+                Membres ({members.length}/{group.maxMembers})
+              </h3>
 
-            <div className="flex flex-wrap gap-2">
-              {members.map((member: GroupMember) => (
-                <div
-                  key={member.id}
-                  className={`flex items-center gap-2 px-1 py-1 rounded-full text-sm
-                    ${member.role === "owner"
-                      ? "border border-orange-500 text-orange-500 bg-black"
-                      : "border border-gray-300 text-gray-700 bg-black"}`}
-                >
-                  {member.user.image ? (
-                    <Image
-                      src={member.user.image}
-                      alt={member.user.name}
-                      className="w-6 h-6 rounded-full"
-                      width={24}
-                      height={24}
-                    />
-                  ) : (
-                    <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold
-                        ${member.role === "owner"
-                          ? "bg-orange-500 text-white"
-                          : "bg-gray-300 text-gray-700"
-                        }
-                      `}
-                    >
-                      {member.user.name?.charAt(0).toUpperCase() || "?"}
-                    </div>
-                  )}
+              <div className="flex flex-wrap gap-2">
+                {members.map((member: GroupMember) => (
+                  <div
+                    key={member.id}
+                    className={`flex items-center gap-2 px-1 py-1 rounded-full text-sm
+                      ${member.role === "owner"
+                        ? "border border-orange-500 text-orange-500 bg-black"
+                        : "border border-gray-300 text-gray-700 bg-black"}`}
+                  >
+                    {member.user.image ? (
+                      <Image
+                        src={member.user.image}
+                        alt={member.user.name}
+                        className="w-6 h-6 rounded-full"
+                        width={24}
+                        height={24}
+                      />
+                    ) : (
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold
+                          ${member.role === "owner"
+                            ? "bg-orange-500 text-white"
+                            : "bg-gray-300 text-gray-700"
+                          }
+                        `}
+                      >
+                        {member.user.name?.charAt(0).toUpperCase() || "?"}
+                      </div>
+                    )}
 
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Zone de chat */}
-          <ChatBox
-            groupId={groupId}
-            messages={messages}
-            currentUserId={session.user.id}
-          />
+          {/* Chat : largeur limitée et centré */}
+          <div className="w-full">
+            <ChatBox
+              groupId={groupId}
+              messages={messages}
+              currentUserId={session.user.id}
+            />
+          </div>
         </div>
       </div>
     </div>

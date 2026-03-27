@@ -42,53 +42,60 @@ export default async function ConcertDetailPage({ params }: PageProps) {
 
       {/* Contenu avec padding pour header mobile */}
       <div className="pt-20 md:pt-0">
-        {concert.artist.imageUrl && (
-          <Image
-            src={concert.artist.imageUrl}
-            alt={concert.artist.name}
-            className="mb-6 w-full max-w-md rounded-lg"
-            width={640}
-            height={360}
-          />
-        )}
-        <div>
-          <div className="flex mb-3 gap-2.5 text-[1.3rem]">
-            <MicVocal className="text-orange-clair"/> 
-            <p className="text-white text-[1.3rem] mb-2">
-              {concert.artist.name}
-            </p>
-          </div>
-          <div className="flex mb-3 gap-2.5 text-[1.1rem]">
-            <MapPin className="text-orange-clair"/>
-            <p className="text-white text-[1.1rem] mb-2">
-              {concert.venue.name} - {concert.venue.postalCode} {concert.venue.city}
-            </p>
-          </div>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start md:justify-center">
+            {concert.artist.imageUrl && (
+              <Image
+                src={concert.artist.imageUrl}
+                alt={concert.artist.name}
+                className="w-full max-w-md md:w-[420px] rounded-lg flex-shrink-0 mx-auto md:mx-0"
+                width={640}
+                height={360}
+              />
+            )}
 
-          <div className="flex mb-4 gap-2.5 text-[1.05rem]">
-            <CalendarDays className="text-orange-clair size-5.5" />
-            <p className="text-white mb-2">
-              {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
-            </p>
-            <Clock className="text-orange-clair size-5.5" /> 
-            <p className="text-white mb-2">{concert.eventTime}</p>
+            <div className="md:max-w-md">
+              <div className="flex mb-3 gap-2.5 text-[1.3rem]">
+                <MicVocal className="text-orange-clair" />
+                <p className="text-white text-[1.3rem] mb-2">{concert.artist.name}</p>
+              </div>
+
+              <div className="flex mb-3 gap-2.5 text-[1.1rem]">
+                <MapPin className="text-orange-clair" />
+                <p className="text-white text-[1.1rem] mb-2">
+                  {concert.venue.name} - {concert.venue.postalCode} {concert.venue.city}
+                </p>
+              </div>
+
+              <div className="flex mb-4 gap-2.5 text-[1.05rem]">
+                <CalendarDays className="text-orange-clair size-5.5" />
+                <p className="text-white mb-2">
+                  {new Date(concert.eventDate).toLocaleDateString("fr-FR")}
+                </p>
+                <Clock className="text-orange-clair size-5.5" />
+                <p className="text-white mb-2">{concert.eventTime}</p>
+              </div>
+
+              <p className="text-white mb-6">{concert.description}</p>
+
+              {concert.ticketUrl && (
+                <a
+                  href={concert.ticketUrl}
+                  className="inline-block bg-orange-clair text-black font-medium px-4 py-2 rounded hover:bg-orange-600 hover:text-white transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Acheter des billets
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
-        <p className="text-white mb-6">{concert.description}</p>
-        {concert.ticketUrl && (
-          <a
-            href={concert.ticketUrl}
-            className="inline-block bg-orange-clair text-black font-medium px-4 py-2 rounded hover:bg-orange-600 hover:text-white transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Acheter des billets
-          </a>
-        )}
-
         {/* Section Groupes */}
-        <GroupsList eventId={concert.id} />
+        <div className="mt-8 max-w-5xl mx-auto">
+          <GroupsList eventId={concert.id} />
+        </div>
       </div>
     </div>
   );

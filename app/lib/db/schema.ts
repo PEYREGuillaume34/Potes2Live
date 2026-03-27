@@ -100,7 +100,7 @@ export const verification = pgTable(
 export const artists = pgTable("artists", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
-  genre: varchar("genre", { length: 100 }), // Rock, Hip-Hop, etc.
+  genre: varchar("genre", { length: 100 }),
   imageUrl: text("image_url"),
   spotifyUrl: text("spotify_url"),
   instagramUrl: text("instagram_url"),
@@ -123,7 +123,7 @@ export const venues = pgTable("venues", {
 
 export const events = pgTable("events", {
   id: serial("id").primaryKey(),
-  slug: varchar("slug", { length: 200 }).notNull().unique(), // pour URL propre
+  slug: varchar("slug", { length: 200 }).notNull().unique(),
   title: text("title").notNull(),
   description: text("description"),
   imageUrl: text("image_url"),
@@ -137,12 +137,13 @@ export const events = pgTable("events", {
     .notNull(),
   
   eventDate: timestamp("event_date").notNull(),
-  eventTime: varchar("event_time", { length: 5 }), // "20:00"
+  eventTime: varchar("event_time", { length: 5 }),
   
   price: doublePrecision("price"),
-  ticketUrl: text("ticket_url"), // lien billeterie externe
+  ticketUrl: text("ticket_url"), 
   
-  status: varchar("status", { length: 20 }).default("upcoming").notNull(), // upcoming, completed, cancelled
+  status: varchar("status", { length: 20 })
+  .default("upcoming").notNull(),
   
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
