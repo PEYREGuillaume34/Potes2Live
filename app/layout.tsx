@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="fr" className="bg-black">
       <body className={`${inter.className} bg-black min-h-screen w-full`}>
         <main className="w-full bg-black min-h-screen">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-8xl mx-auto px-1">
             {children}
           </div>
         </main>

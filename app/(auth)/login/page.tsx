@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "@/app/lib/auth-client";
 import Link from "next/link";
 
-
-
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -20,14 +18,19 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await signIn.email({
+      const result = await signIn.email({
         email,
         password,
       });
-      
+
+      if (result.error) {
+        setError("Email ou mot de passe incorrect");
+        return;
+      }
+
       router.push("/concerts");
     } catch {
-      setError("Email ou mot de passe incorrect");
+      setError("Une erreur inattendue est survenue");
     } finally {
       setLoading(false);
     }
@@ -58,7 +61,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
+              className="w-full px-4 py-3 border bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="marie@exemple.com"
             />
           </div>
@@ -73,7 +76,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
+              className="w-full px-4 py-3 border bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-fonce focus:border-transparent outline-none"
               placeholder="••••••••"
             />
           </div>

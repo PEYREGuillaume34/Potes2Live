@@ -18,7 +18,7 @@ export default function HomePage() {
         className="mx-auto mt-10 md:mt-0 mb-2"
         priority
       />
-      <p className="text-lg text-center text-white mb-4">
+      <p className="text-lg text-center text-white mb-3">
         Trouvez des concerts et formez des groupes pour y aller ensemble.
       </p>
       <div className="flex justify-center space-x-4">
@@ -26,7 +26,7 @@ export default function HomePage() {
           <div className="text-white mt-4">Chargement...</div>
         ) : session?.user ? (
           // Utilisateur connecté
-          <div className="text-white mt-3 bg-orange-clair p-2 pl-6 pr-6 rounded-full">
+          <div className="text-white bg-orange-clair p-2 pl-6 pr-6 rounded-full">
             <p className=" text-xl font-bold text-black">
               Bienvenue, {session.user.name}!
             </p>

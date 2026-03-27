@@ -19,19 +19,20 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      await signUp.email({
+      const result = await signUp.email({
         email,
         password,
         name,
       });
-      
+
+      if (result.error) {
+        setError(result.error.message ?? "Erreur lors de l'inscription");
+        return;
+      }
+
       router.push("/concerts");
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Erreur lors de l'inscription");
-      }
+        setError("Une erreur est survenue lors de l'inscription");
     } finally {
       setLoading(false);
     }
