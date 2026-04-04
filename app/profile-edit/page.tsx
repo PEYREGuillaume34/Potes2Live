@@ -38,6 +38,7 @@ export default function EditProfilePage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [artistsCatalog, setArtistsCatalog] = useState<FavoriteArtistItem[]>([]);
@@ -52,6 +53,7 @@ export default function EditProfilePage() {
       setName(user.name || "");
       setEmail(user.email || "");
       setBio(user.bio || "");
+      setAvatarUrl(user.avatar_url || "");
       setCurrentPassword("");
       setNewPassword("");
     }
@@ -146,6 +148,7 @@ export default function EditProfilePage() {
       formData.append("name", name);
       formData.append("email", email);
       formData.append("bio", bio);
+      formData.append("avatar_url", avatarUrl);
       formData.append("currentPassword", currentPassword);
       formData.append("newPassword", newPassword);
 
@@ -174,6 +177,7 @@ export default function EditProfilePage() {
     setName(user?.name || "");
     setEmail(user?.email || "");
     setBio(user?.bio || "");
+    setAvatarUrl(user?.avatar_url || "");
     setCurrentPassword("");
     setNewPassword("");
     setError(null);
@@ -228,9 +232,9 @@ export default function EditProfilePage() {
           {/* Photo de profil */}
           <div className="flex flex-col items-center mb-8">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center mb-3">
-              {user?.avatar_url ? (
+              {(isEditing ? avatarUrl : user?.avatar_url) ? (
                 <Image 
-                  src={user.avatar_url} 
+                  src={(isEditing ? avatarUrl : user?.avatar_url)!} 
                   alt="Photo de profil" 
                   className="w-full h-full rounded-full object-cover"
                   width={96}
@@ -242,11 +246,6 @@ export default function EditProfilePage() {
                 </span>
               )}
             </div>
-            {isEditing && user && (
-              <button className="text-orange-fonce text-sm font-medium">
-                Changer la photo
-              </button>
-            )}
           </div>
 
           {!isEditing ? (
@@ -336,6 +335,21 @@ export default function EditProfilePage() {
                   rows={3}
                 />
               </div>
+
+              {/* URL de l'avatar */}
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  URL de la photo de profil
+                </label>
+                <input
+                  type="url"
+                  value={avatarUrl}
+                  onChange={(e) => setAvatarUrl(e.target.value)}
+                  className="bg-gray-800 border border-gray-700 text-white rounded-lg p-4 w-full"
+                  placeholder="https://exemple.com/photo.jpg"
+                />
+              </div>
+
               {/* Changement de mot de passe */}
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">

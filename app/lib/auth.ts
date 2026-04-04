@@ -20,7 +20,13 @@ export const auth = betterAuth({
                 type: "string",
                 required: false,
                 defaultValue: "",
-                input: true, // Permet de le passer dans les inputs
+                input: true,
+            },
+            avatar_url: {
+                type: "string",
+                required: false,
+                defaultValue: null,
+                input: true,
             },
         },
     },

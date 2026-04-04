@@ -24,6 +24,7 @@ export async function updateUserProfile(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const bio = formData.get("bio") as string;
+  const avatar_url = (formData.get("avatar_url") as string) || null;
   const currentPassword = formData.get("currentPassword") as string;
   const newPassword = formData.get("newPassword") as string;
 
@@ -50,13 +51,14 @@ export async function updateUserProfile(formData: FormData) {
     }
   }
 
-  // Mise à jour du nom, email et bio
+  // Mise à jour du nom, email, bio et avatar
   await db
     .update(user)
     .set({
       name,
       email,
       bio,
+      avatar_url,
       updatedAt: new Date(),
     })
     .where(eq(user.id, session.user.id));

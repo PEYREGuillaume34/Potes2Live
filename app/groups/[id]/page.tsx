@@ -21,7 +21,7 @@ type GroupMember = {
   user: {
     id: string;
     name: string;
-    image?: string;
+    avatar_url?: string | null;
   };
 };
 
@@ -107,9 +107,9 @@ export default async function ChatPage({ params }: PageProps) {
                         ? "border border-orange-500 text-orange-500 bg-black"
                         : "border border-gray-300 text-gray-700 bg-black"}`}
                   >
-                    {member.user.image ? (
+                    {member.user.avatar_url ? (
                       <Image
-                        src={member.user.image}
+                        src={member.user.avatar_url}
                         alt={member.user.name}
                         className="w-6 h-6 rounded-full"
                         width={24}

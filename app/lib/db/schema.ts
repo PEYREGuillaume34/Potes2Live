@@ -188,6 +188,10 @@ export const groups = pgTable("groups", {
     .where(sql`${table.isActive} = true`),
 ]);
 
+// ========================================
+// TABLES MEMBRES DE GROUPES
+// ========================================
+
 export const groupMembers = pgTable(
   "group_members",
   {
@@ -213,6 +217,9 @@ export const groupMembers = pgTable(
   })
 );
 
+// ========================================
+// TABLES MESSAGES DE GROUPES
+// ========================================
 export const groupMessages = pgTable("group_messages", {
   id: serial("id").primaryKey(),
   
