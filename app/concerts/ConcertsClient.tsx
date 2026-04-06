@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
 import { ConcertCard } from "./component/ConcertCard";
 import type { ConcertsClientProps } from "@/app/type";
+import { ArrowUpDown } from "lucide-react";
 
 const PARIS_ARRONDISSEMENTS = [
   75001, 75002, 75003, 75004, 75005, 75006, 75007, 75008, 75009, 75010,
@@ -19,6 +20,7 @@ export function ConcertsClient({
 }: ConcertsClientProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortAscending, setSortAscending] = useState(true);
 
   // Fonction générique pour changer de ville
   const handleCitySelect = (city: string) => {
@@ -63,6 +65,19 @@ export function ConcertsClient({
     });
   }, [concerts, searchQuery]);
 
+  // Trier par date
+  const sortedConcerts = useMemo(() => {
+    const result = [...filteredConcerts];
+
+    result.sort((a, b) => {
+      const dateA = new Date(a.eventDate).getTime();
+      const dateB = new Date(b.eventDate).getTime();
+      return sortAscending ? dateA - dateB : dateB - dateA;
+    });
+
+    return result;
+  }, [filteredConcerts, sortAscending]);
+
   return (
     <div>
       {/* BARRE DE RECHERCHE */}
@@ -104,15 +119,29 @@ export function ConcertsClient({
             </button>
           )}
         </div>
-        {searchQuery && (
-          <p className="mt-2 text-sm text-gray-400">
-            {filteredConcerts.length} résultat{filteredConcerts.length > 1 ? "s" : ""} trouvé{filteredConcerts.length > 1 ? "s" : ""}
-          </p>
-        )}
+
+        <div className="mt-3 flex items-center justify-between gap-3">
+          {searchQuery ? (
+            <p className="text-sm text-gray-400">
+              {filteredConcerts.length} résultat{filteredConcerts.length > 1 ? "s" : ""} trouvé{filteredConcerts.length > 1 ? "s" : ""}
+            </p>
+          ) : (
+            <div />
+          )}
+
+        </div>
       </div>
 
       {/* FILTRES DES VILLES (Carousel horizontal) */}
       <div className="flex overflow-x-auto gap-2 pb-2 no-scrollbar">
+         <button
+            onClick={() => setSortAscending(!sortAscending)}
+            className="shrink-0 px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors flex items-center gap-2"
+            title={sortAscending ? "Afficher les plus éloignés d'abord" : "Afficher les plus proches d'abord"}
+          >
+            <ArrowUpDown className="w-4 h-4" />
+          </button>
+          
         {CITIES.map((city) => (
           <button
             key={city}
@@ -154,8 +183,8 @@ export function ConcertsClient({
 
       {/* LISTE DES CONCERTS */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredConcerts.length > 0 ? (
-          filteredConcerts.map((concert) => (
+        {sortedConcerts.length > 0 ? (
+          sortedConcerts.map((concert) => (
             <ConcertCard
               key={concert.id}
               slug={concert.slug}
