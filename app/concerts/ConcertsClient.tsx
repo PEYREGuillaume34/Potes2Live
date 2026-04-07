@@ -42,7 +42,6 @@ export function ConcertsClient({
     if (!searchQuery.trim()) {
       return concerts;
     }
-
     const query = searchQuery.toLowerCase().trim();
 
     return concerts.filter((concert) => {

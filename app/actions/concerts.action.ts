@@ -6,153 +6,166 @@ import { artists, events, groups, venues } from "../lib/db/schema";
 import { eq, desc, and, gt } from "drizzle-orm";
 import type { ActionResponse, Concert, ConcertListItem } from "../type";
 
-export async function getUpcomingConcerts():
-Promise<ActionResponse<Concert[]>> {
-    try {
-        const concerts = await db
-        .select({
-            id: events.id,
-            slug: events.slug,
-            title: events.title,
-            description: events.description,
-            imageUrl: events.imageUrl,
-            eventDate: events.eventDate,
-            eventTime: events.eventTime,
-            price: events.price,
-            ticketUrl: events.ticketUrl,
-            artist: {
-                id: artists.id,
-                name: artists.name,
-                genre: artists.genre,
-                imageUrl: artists.imageUrl,
-            },
-            venue: {
-                id: venues.id,
-                name: venues.name,
-                city: venues.city,
-                postalCode: venues.postalCode,
-                address: venues.address,
-            },
-            groupCount: sql<number>`(
+export async function getUpcomingConcerts(): Promise<
+  ActionResponse<Concert[]>
+> {
+  try {
+    const concerts = await db
+      .select({
+        id: events.id,
+        slug: events.slug,
+        title: events.title,
+        description: events.description,
+        imageUrl: events.imageUrl,
+        eventDate: events.eventDate,
+        eventTime: events.eventTime,
+        price: events.price,
+        ticketUrl: events.ticketUrl,
+        artist: {
+          id: artists.id,
+          name: artists.name,
+          genre: artists.genre,
+          imageUrl: artists.imageUrl,
+        },
+        venue: {
+          id: venues.id,
+          name: venues.name,
+          city: venues.city,
+          postalCode: venues.postalCode,
+          address: venues.address,
+        },
+        groupCount: sql<number>`(
                 SELECT COUNT(*)::int
                 FROM ${groups}
                 WHERE ${groups.eventId} = ${events.id}
                 AND ${groups.isActive} = true
             )`,
-        })
-        .from(events)
-        .innerJoin(artists, eq(events.artistId, artists.id))
-        .innerJoin(venues, eq(events.venueId, venues.id))
-        .where(and(eq(events.status, "upcoming"), gt(events.eventDate, new Date())))
-        .orderBy(desc(events.eventDate));
+      })
+      .from(events)
+      .innerJoin(artists, eq(events.artistId, artists.id))
+      .innerJoin(venues, eq(events.venueId, venues.id))
+      .where(
+        and(eq(events.status, "upcoming"), gt(events.eventDate, new Date())),
+      )
+      .orderBy(desc(events.eventDate));
 
-        return { success: true, data: concerts };
-    } catch (error) {
-        console.error("Erreur récupération concerts:", error);
-        return { success: false, 
-            error: "Erreur lors de la récupération des concerts" };
-    }
+    return { success: true, data: concerts };
+  } catch (error) {
+    console.error("Erreur récupération concerts:", error);
+    return {
+      success: false,
+      error: "Erreur lors de la récupération des concerts",
+    };
+  }
 }
 
 export async function getConcertsByCity(
-    city: string,
-    postalCode?: string
+  city: string,
+  postalCode?: string,
 ): Promise<ActionResponse<ConcertListItem[]>> {
-    try {
-        const conditions = [eq(events.status, "upcoming"), gt(events.eventDate, new Date())];
+  try {
+    const conditions = [
+      eq(events.status, "upcoming"),
+      gt(events.eventDate, new Date()),
+    ];
 
-        if (postalCode) {
-            conditions.push(eq(venues.postalCode, postalCode));
-        } else if (city === "Paris") {
-            conditions.push(eq(venues.city, "Paris"));
-        } else {
-            conditions.push(eq(venues.city, city));
-        }
+    if (postalCode) {
+      conditions.push(eq(venues.postalCode, postalCode));
+    } else {
+      conditions.push(eq(venues.city, city));
+    }
 
-        const concerts = await db
-        .select({
-            id: events.id,
-            slug: events.slug,
-            title: events.title,
-            imageUrl: events.imageUrl,
-            eventDate: events.eventDate,
-            eventTime: events.eventTime,
-            price: events.price,
-            artist: {
-                name: artists.name,
-                genre: artists.genre,
-                imageUrl: artists.imageUrl,
-            },
-            venue: {
-                name: venues.name,
-                city: venues.city,
-                postalCode: venues.postalCode,
-            },
-            groupCount: sql<number>`(
+    const concerts = await db
+      .select({
+        id: events.id,
+        slug: events.slug,
+        title: events.title,
+        imageUrl: events.imageUrl,
+        eventDate: events.eventDate,
+        eventTime: events.eventTime,
+        price: events.price,
+        artist: {
+          name: artists.name,
+          genre: artists.genre,
+          imageUrl: artists.imageUrl,
+        },
+        venue: {
+          name: venues.name,
+          city: venues.city,
+          postalCode: venues.postalCode,
+        },
+        groupCount: sql<number>`(
                 SELECT COUNT(*)::int
                 FROM ${groups}
                 WHERE ${groups.eventId} = ${events.id}
                 AND ${groups.isActive} = true
             )`,
-        })
-        .from(events)
-        .innerJoin(artists, eq(events.artistId, artists.id))
-        .innerJoin(venues, eq(events.venueId, venues.id))
-        .where(and(...conditions))
-        .orderBy(desc(events.eventDate));
+      })
+      .from(events)
+      .innerJoin(artists, eq(events.artistId, artists.id))
+      .innerJoin(venues, eq(events.venueId, venues.id))
+      .where(and(...conditions))
+      .orderBy(desc(events.eventDate));
 
-        return { success: true, data: concerts };
-    } catch (error) {
-        console.error("Erreur récupération concerts par ville:", error);
-        return { success: false, error: "Erreur lors de la récupération des concerts par ville" };
-    }
+    return { success: true, data: concerts };
+  } catch (error) {
+    console.error("Erreur récupération concerts par ville:", error);
+    return {
+      success: false,
+      error: "Erreur lors de la récupération des concerts par ville",
+    };
+  }
 }
 
-export async function getConcertBySlug(slug: string):
-Promise<ActionResponse<Concert>> {
-    try {
-        const concert = await db
-        .select({
-            id: events.id,
-            slug: events.slug,
-            title: events.title,
-            description: events.description,
-            imageUrl: events.imageUrl,
-            eventDate: events.eventDate,
-            eventTime: events.eventTime,
-            price: events.price,
-            ticketUrl: events.ticketUrl,
-            artist: {
-                id: artists.id,
-                name: artists.name,
-                genre: artists.genre,
-                imageUrl: artists.imageUrl,
-                spotifyUrl: artists.spotifyUrl,
-                instagramUrl: artists.instagramUrl,
-                bio: artists.bio,
-            },
-            venue: {
-                id: venues.id,
-                name: venues.name,
-                city: venues.city,
-                postalCode: venues.postalCode,
-                address: venues.address,
-                latitude: venues.latitude,
-                longitude: venues.longitude,
-            },
-        })
-        .from(events)
-        .innerJoin(artists, eq(events.artistId, artists.id))
-        .innerJoin(venues, eq(events.venueId, venues.id))
-        .where(eq(events.slug, slug))
-        .limit(1);
+export async function getConcertBySlug(
+  slug: string,
+): Promise<ActionResponse<Concert>> {
+  try {
+    const concert = await db
+      .select({
+        id: events.id,
+        slug: events.slug,
+        title: events.title,
+        description: events.description,
+        imageUrl: events.imageUrl,
+        eventDate: events.eventDate,
+        eventTime: events.eventTime,
+        price: events.price,
+        ticketUrl: events.ticketUrl,
+        artist: {
+          id: artists.id,
+          name: artists.name,
+          genre: artists.genre,
+          imageUrl: artists.imageUrl,
+          spotifyUrl: artists.spotifyUrl,
+          instagramUrl: artists.instagramUrl,
+          bio: artists.bio,
+        },
+        venue: {
+          id: venues.id,
+          name: venues.name,
+          city: venues.city,
+          postalCode: venues.postalCode,
+          address: venues.address,
+          latitude: venues.latitude,
+          longitude: venues.longitude,
+        },
+      })
+      .from(events)
+      .innerJoin(artists, eq(events.artistId, artists.id))
+      .innerJoin(venues, eq(events.venueId, venues.id))
+      .where(eq(events.slug, slug))
+      .limit(1);
 
-        if (concert.length === 0) {
-            return { success: false, error: "Concert non trouvé" };
-        }
-        return { success: true, data: concert[0] };
-    } catch (error) {
-        console.error("Erreur récupération concert par slug:", error);
-        return { success: false, error: "Erreur lors de la récupération du concert" };
+    if (concert.length === 0) {
+      return { success: false, error: "Concert non trouvé" };
     }
+    return { success: true, data: concert[0] };
+  } catch (error) {
+    console.error("Erreur récupération concert par slug:", error);
+    return {
+      success: false,
+      error: "Erreur lors de la récupération du concert",
+    };
+  }
 }

@@ -784,7 +784,7 @@ async function seed() {
         slug: "therapie-taxi-gaite-2026",
         title: "Therapie TAXI - Hit Sale Tour",
         description: "Concert electro-pop festif à La Gaîté Lyrique.",
-        imageUrl: "https://images.unsplash.com/photo-1571266028243-d220c6ce8f3d?w=800", // Electro-Pop concert
+        imageUrl: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800", // Electro-Pop concert
         artistId: therapie.id,
         venueId: gaite.id,
         eventDate: new Date("2026-04-08"),

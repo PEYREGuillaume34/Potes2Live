@@ -8,7 +8,6 @@ import { eq, and } from "drizzle-orm/sql/expressions/conditions";
 
 export async function getGroupMessages(groupId: number) {
 try{
-    // 1. Récupérer la session utilisateur
     const session = await auth.api.getSession({
     headers: await headers(),
 });
@@ -17,7 +16,6 @@ try{
         return { success: false, error: "Utilisateur non authentifié" };
     }
 
-    // 2. Vérifier que l'utilisateur est membre du groupe
     const [isMemberResult] = await db
     .select()
     .from(groupMembers)
@@ -34,7 +32,6 @@ try{
         return { success: false, error: "Accès refusé : vous n'êtes pas membre de ce groupe." };
     }
 
-    // 3. Récupérer les messages du groupe
     const messages = await db
     .select({
         id: groupMessages.id,
@@ -51,7 +48,6 @@ try{
     .where(eq(groupMessages.groupId, groupId))
     .orderBy(groupMessages.createdAt);
 
-    // 4. Retourner les messages
     return { success: true, data: messages };
 } catch (error) {
     console.error("Erreur lors de la récupération des messages du groupe :", error);
@@ -61,7 +57,6 @@ try{
 
 export async function sendGroupMessage(groupId: number, content: string) {
     try {
-        // 1. Récupérer la session utilisateur
         const session = await auth.api.getSession({
             headers: await headers(),
         });
@@ -70,7 +65,6 @@ export async function sendGroupMessage(groupId: number, content: string) {
             return { success: false, error: "Utilisateur non authentifié" };
         }
 
-        // 2. Vérifier que l'utilisateur est membre du groupe
         const [isMemberResult] = await db
             .select()
             .from(groupMembers)
@@ -87,12 +81,10 @@ export async function sendGroupMessage(groupId: number, content: string) {
                 return { success: false, error: "Accès refusé : vous n'êtes pas membre de ce groupe." };
             }
 
-            // Valider le contenu du message
             if (content.trim().length === 0) {
                 return { success: false, error: "Le contenu du message ne peut pas être vide." };
             }
 
-            // 3. Insérer le message dans la base de données
             await db
                 .insert(groupMessages)
                 .values({
@@ -101,7 +93,6 @@ export async function sendGroupMessage(groupId: number, content: string) {
                     content:content.trim(),
                 });
 
-            // 4. Retourner le succès
             return { success: true, message: "Message envoyé avec succès." };
     } catch (error) {
         console.error("Erreur lors de l'envoi du message :", error);
